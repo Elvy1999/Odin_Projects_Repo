@@ -3,18 +3,32 @@ const add_book_btn = document.getElementById("add_book");
 const overlay_id = document.getElementById("overlay");
 const book_form = document.querySelector(".book-form");
 const books_content = document.querySelector(".books_content");
-
-
-
-
-
-
-
-
+const all_books = books_content.querySelectorAll(".book");
 
 let books_array = [];
 
 
+books_content.addEventListener("click", function(event){
+    let readBtn = event.target.closest(".read");
+    if(readBtn){
+        let book = event.target.closest(".book");
+        let status = book.querySelector(".status");
+        if(status.textContent === "Completed"){
+            status.textContent = "In Progress";
+        }
+        else{
+            status.textContent = "Completed";
+        }
+    }
+});
+
+books_content.addEventListener("click", function(event){
+    let deleteBtn = event.target.closest(".delete");
+    if(deleteBtn){
+        let book = event.target.closest(".book");
+        book.remove();
+    }
+});
 
 
 
@@ -86,7 +100,7 @@ function book_to_html(book){
     bookDiv.appendChild(book_btnsDiv);
     let statusDiv = document.createElement("div");
     statusDiv.classList.add("status");
-    statusDiv.textContent = book['read'] == true ? "Read" : "In Progress";
+    statusDiv.textContent = book['read'] == true ? "Completed" : "In Progress";
     bookDiv.appendChild(statusDiv);
     books_content.appendChild(bookDiv);
 }
