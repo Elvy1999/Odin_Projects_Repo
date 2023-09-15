@@ -10,10 +10,30 @@
   <body>
     <header>
       <p>Fusion Library</p>
-
       <button id="add_book" class="add_btn">+</button>
     </header>
     <div class="main_container">
+      <div id="overlay">
+        <div class="overlay-content">
+            <form class="book-form">
+              <h2>Enter your book info</h2>
+          
+              <label for="book-name">Book Name</label>
+              <input type="text" id="book-name" name="book-name" required>
+          
+              <label for="author">Author</label>
+              <input type="text" id="author" name="author" required>
+          
+              <label for="page-number">Page Number</label>
+              <input type="number" id="page-number" name="page-number" min="0" required>
+          
+              <label for="read">Have you read this book?</label>
+              <input type="checkbox" id="read" name="read">
+          
+              <input type="submit" value="Submit">
+            </form>
+          </div>
+      </div>
       <div class="directions">
         <p id="Directions-title">Directions</p>
         <ol>
@@ -24,23 +44,47 @@
         </ol>
       </div>
       <div class="books_content">
-        <div class="book">hello</div>
-        <div class="book">
+        <div class="book" id="book-1">
           <div class ="info">
-            <h2 id="title"> Title: Meditations</h2>
-            <h3 id ="author"> Author: Marcus Aurelius</h3>
-            <p id="current-page"> Page number: 7</p>
+            <h2 class="title"> Title: Meditations</h2>
+            <h3 class ="author"> Author: Marcus Aurelius</h3>
+            <p class="current-page"> Page number: 7</p>
           </div>
           <div class="book_btns">
-            <button id="read">Read</button>
-            <button id="delete">Delete</button>
+            <button class="read">Read</button>
+            <button class="delete">Delete</button>
           </div>
-          <div id="status"><p>Completed</p></div>
+          <div class="status"><p>Completed</p></div>
         </div>
-    
-     
+        <div class="book" id="book-2">
+          <div class ="info">
+            <h2 class="title"> Title: Atomic Habits</h2>
+            <h3 class ="author"> Author: James Clear</h3>
+            <p class="current-page"> Page number: 25</p>
+          </div>
+          <div class="book_btns">
+            <button class="read">Read</button>
+            <button class="delete">Delete</button>
+          </div>
+          <div class="status"><p>Completed</p></div>
+        </div>
+        <div class="book" id="book-3">
+          <div class ="info">
+            <h2 class="title"> Title: Super Vision</h2>
+            <h3 class ="author"> Author: Sherife Abdelmsddih</h3>
+            <p class="current-page"> Page number: 45</p>
+          </div>
+          <div class="book_btns">
+            <button class="read">Read</button>
+            <button class="delete">Delete</button>
+          </div>
+          <div class="status"><p>In Progress</p></div>
+        </div>
+        
+       
+          
       </div>
-    </div>
+    </div> 
   </body>
 </html>
 
