@@ -13,8 +13,9 @@ if (!localStorage.getItem('books_array_web_storage')) {
     // If not, add default books
     localStorage.setItem('books_array_web_storage', JSON.stringify(defaultBooks));
   }
-  
-  let books_array = JSON.parse(localStorage.getItem('books_array_web_storage')) || [];
+  // gets all the book values from localStorage in the book_array_web_storage
+  // and adds them to the books_array array in the javascript file
+  let books_array = JSON.parse(localStorage.getItem('books_array_web_storage')) || []; 
   
   function saveBooksToLocalStorage() {
     localStorage.setItem('books_array_web_storage', JSON.stringify(books_array));
