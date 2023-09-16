@@ -75,14 +75,6 @@ header p {
   animation: rotation 8s infinite linear;
 }
 
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
-}
 
 /* Creating container for the books */
 
@@ -302,4 +294,16 @@ header p {
 
 .book-form input[type="submit"]:active{
   transform: scale(0.98);
+}
+
+/* * * * * * * * *\
+ * Footer   *
+\* * * * * * * * */
+
+footer {
+  grid-row: 3/4;
+  display: flex;
+  justify-content: center;
+  font-size: clamp(20px, 2vw, 26px);
+  align-items: center;
 }
