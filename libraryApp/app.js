@@ -6,7 +6,7 @@ const books_content = document.querySelector(".books_content");
 let defaultBooks = [
     {author: "Marcus Aurelius", book_name: "Meditations", "page-number": 7, "read": true, id: "book-1"},
     {author: "James Clear", book_name: "Atomic Habits", "page-number": 25, "read": false, id: "book-2"},
-    {author: "Sherife Abdelmsddh", book_name: "Meditations", "page-number": 7, "read": true, id: "book-3"}
+    {author: "Sherife Abdelmsddh", book_name: "Super Vision", "page-number": 7, "read": true, id: "book-3"}
   ];
 // Check if 'books_array' already exists in localStorage
 if (!localStorage.getItem('books_array_web_storage')) {
