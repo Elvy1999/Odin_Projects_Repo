@@ -1,85 +1,98 @@
-// create access to dom elements
 const add_book_btn = document.getElementById("add_book");
 const overlay_id = document.getElementById("overlay");
 const book_form = document.querySelector(".book-form");
 const books_content = document.querySelector(".books_content");
-const all_books = books_content.querySelectorAll(".book");
 
-let books_array = [{author: "Marcus Aurelius", book_name: "Meditations", "page-number": 7, "read":true, id:"book-1"}
-,{author: "James Clear", book_name: "Atomic Habits", "page-number": 25, "read":true,id:"book-2"}
-,{author: "Sherife Abdelmsddh", book_name: "Meditations", "page-number": 7, "read":true,id:"book-3"}
-];
-
-
-books_content.addEventListener("click", function(event){
+let defaultBooks = [
+    {author: "Marcus Aurelius", book_name: "Meditations", "page-number": 7, "read": true, id: "book-1"},
+    {author: "James Clear", book_name: "Atomic Habits", "page-number": 25, "read": false, id: "book-2"},
+    {author: "Sherife Abdelmsddh", book_name: "Meditations", "page-number": 7, "read": true, id: "book-3"}
+  ];
+// Check if 'books_array' already exists in localStorage
+if (!localStorage.getItem('books_array_web_storage')) {
+    // If not, add default books
+    localStorage.setItem('books_array_web_storage', JSON.stringify(defaultBooks));
+  }
+  
+  let books_array = JSON.parse(localStorage.getItem('books_array_web_storage')) || [];
+  
+  function saveBooksToLocalStorage() {
+    localStorage.setItem('books_array_web_storage', JSON.stringify(books_array));
+  }
+  // Add default books if books_array is empty
+if (books_array.length === 0) {
+    books_array = defaultBooks;
+    saveBooksToLocalStorage();
+  }
+  
+  // Function to update status when a book is marked as read
+  function updateBookStatus(book) {
+    let status = book.querySelector(".status");
+    let book_id = book.id;
+    let book_index = books_array.findIndex(obj => obj.id == book_id);
+    if (status.textContent === "Completed") {
+      status.textContent = "In Progress";
+      books_array[book_index]["read"] = false;
+    } else {
+      status.textContent = "Completed";
+      books_array[book_index]["read"] = true;
+    }
+    saveBooksToLocalStorage(); // Save changes to localStorage
+   
+  }
+  
+  // Function to delete a book
+  function deleteBook(book) {
+    let book_id = book.id;
+    book.remove();
+    let book_index = books_array.findIndex(obj => obj.id == book_id);
+    books_array.splice(book_index, 1);
+    saveBooksToLocalStorage(); // Save changes to localStorage
+  }
+  
+  // Add event listeners
+  
+  books_content.addEventListener("click", function(event) {
     let readBtn = event.target.closest(".read");
-    if(readBtn){
-        let book = event.target.closest(".book");
-        let status = book.querySelector(".status");
-        let book_id = book.id;
-        let book_index = books_array.findIndex(obj => obj.id == book_id);
-        if(status.textContent === "Completed"){
-            status.textContent = "In Progress";
-            books_array[book_index]["read"] = false;
-        }
-        else{
-            status.textContent = "Completed";
-            books_array[book_index]["read"] = true;
-        }
-        console.log(books_array)
+    if (readBtn) {
+      let book = event.target.closest(".book");
+      updateBookStatus(book);
     }
+  
     let deleteBtn = event.target.closest(".delete");
-    if(deleteBtn){
-        // propagates up the dom tree from the event that triggered it to find an element that has the 
-        // the class or id specified, in this case its looking for an element with the book class
-        let book = event.target.closest(".book"); 
-        let book_id = book.id; // get the id element of the div found with the class book
-        book.remove();
-        let book_index = books_array.findIndex(obj => obj.id == book_id);
-        books_array.splice(book_index, 1);
-        console.log(books_array);
+    if (deleteBtn) {
+      let book = event.target.closest(".book");
+      deleteBook(book);
     }
-    
-});
-
-
-
-
-
-
-
-// event listeners for the page
-
-add_book_btn.addEventListener("click", ()=>{
+  });
+  
+  add_book_btn.addEventListener("click", () => {
     let overlay = overlay_id;
-    if (overlay.style.right === "0px"){
-        overlay.style.right = "-100%";
+    if (overlay.style.right === "0px") {
+      overlay.style.right = "-100%";
+    } else {
+      overlay.style.right = "0px";
     }
-    else{
-        overlay.style.right = "0px";
-    }  
-});
-
-book_form.addEventListener("submit",function(event){
-    event.preventDefault(); // Prevents the form from submitting normally
-    const formElements = this.elements; // form elements
-    const formData = {} // create an object to store form data
-    for(let i=0; i< formElements.length; i++){
-        const element = formElements[i]; // access the first element in the form
-        if(element.type !== "submit"){
-            formData[element.name] = element.type === "checkbox" ? element.checked : element.value;
-        }
+  });
+  
+  book_form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const formElements = this.elements;
+    const formData = {}
+    for (let i = 0; i < formElements.length; i++) {
+      const element = formElements[i];
+      if (element.type !== "submit") {
+        formData[element.name] = element.type === "checkbox" ? element.checked : element.value;
+      }
     }
-    formData["id"] = formData["book_name"]+formData["author"];
-
-    // resets form 
+    formData["id"] = formData["book_name"] + formData["author"];
     book_form.reset();
     overlay.style.right = "-100%";
     books_array.push(formData);
     book_to_html(formData);
-});
-
-function book_to_html(book){
+    saveBooksToLocalStorage(); // Save changes to localStorage
+  });
+function book_to_html(book){ // adds a book to the books_content container in the html file
     let bookDiv = document.createElement("div");
     bookDiv.classList.add("book");
     bookDiv.id = book["id"];
@@ -115,4 +128,8 @@ function book_to_html(book){
     bookDiv.appendChild(statusDiv);
     books_content.appendChild(bookDiv);
 }
+
+books_array.forEach(book => { // populates the book_content containter with books when the page first loads
+    book_to_html(book);
+  });
 
