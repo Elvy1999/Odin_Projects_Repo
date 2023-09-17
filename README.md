@@ -10,3 +10,9 @@ Explore the following projects with their live demos:
 A responsive project which allows the user to dynamically add and remove book entries from thier library.
 
 [Live Demo](https://elvy1999.github.io/Odin_Projects_Repo/libraryApp/)
+
+## Tic-Tac-Toe
+
+A game of tic tac toe with a ninja theme
+
+[Live Demo](https://elvy1999.github.io/Odin_Projects_Repo/ticTacToe/)
