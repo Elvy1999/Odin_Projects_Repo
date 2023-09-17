@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+    
+}
+@font-face {
+    font-family: "jump";
+    src: url("fonts/Higher.ttf");
+}
+
+body{
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+}
+
+header{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "jump", 'Times New Roman', Times, serif;
+    background-color:white;
+    box-shadow: 0px 26px 31px -3px rgba(0,0,0,0.5);
+    color: #d46b5c;
+    font-size: 1em;
+}
+header h2:hover{
+    transform: scale(1.1);
+    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+header{
+    opacity: 0; /* Set initial opacity to 0 */
+    transform: translateY(-20px); /* Move elements up initially */
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; /* Apply transition to opacity and transform properties */
+}
+
+header img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* messing around with media queries */
+@media only screen and (max-width: 600px) {
+    header img{
+        height: 50px;
+        width: 50px;
+    }
+    header{
+        font-size: .5em;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
