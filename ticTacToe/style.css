@@ -76,7 +76,7 @@ main{
 .player-menu{
     display: flex;
     flex-direction: column;
-    gap: 5%;
+    gap: 5px;
     justify-content: center;
     align-items: center;
     font-family: "jump", 'Times New Roman', Times, serif;
@@ -158,7 +158,7 @@ footer{
 
 /*  imported the gradient-border to give the weapon-grid border a cool look */
 .gradient-border {
-  --borderWidth: 8px;
+  --borderWidth: 4px;
   background: #080808;
   position: relative;
   border-radius: var(--borderWidth);
