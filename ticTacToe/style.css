@@ -77,16 +77,19 @@ main{
 .player-menu{
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0spx;
     justify-content: center;
     align-items: center;
     font-family: "jump", 'Times New Roman', Times, serif;
+   
 }
 
 
 .player-menu img{
     width: 20%;
     object-fit: cover;
+    position: relative;
+   
 }
 .player-menu h3{
     font-family: "jump", 'Times New Roman', Times, serif;
@@ -141,11 +144,7 @@ footer{
 }
 
 
-@media only screen and (max-width: 750px) {
-    .weapon-grid{
-        max-width:10%; /* Ensure the grid container doesn't exceed its parent's width */
-    } 
-}
+
 
 
 
@@ -187,57 +186,59 @@ footer{
 
 .cta {
     display: flex;
-    padding: 10px 10px;
+    padding: 0.625em 0.625em; /* Equivalent to 10px */
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
-    font-size: 40px;
-    color: white;
+    font-size: 1.8em; /* Equivalent to 26px */
+    color: rgb(243, 240, 240);
     background: #d46b5c;
     transition: 1s;
-    box-shadow: 6px 6px 0 black;
+    box-shadow: 0.375em 0.375em 0 black; /* Equivalent to 6px */
     transform: skewX(-15deg);
 }
 
 .cta:focus {
-   outline: none; 
+    outline: none;
 }
 
 .cta:hover {
     transition: 0.5s;
-    box-shadow: 10px 10px 0 #FBC638;
+    box-shadow: 0.625em 0.625em 0 #FBC638; /* Equivalent to 10px */
 }
 
 .cta span:nth-child(2) {
     transition: 0.5s;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .cta:hover  span:nth-child(2) {
     transition: 0.5s;
-    margin-right: 45px;
+    margin-right: 2.8125em; /* Equivalent to 45px */
 }
 
-  span {
-    transform: skewX(15deg) 
-  }
+span {
+    transform: skewX(15deg);
+    font-weight: bold;
+    font-family: "times", "Times New Roman",;
+}
 
-  span:nth-child(2) {
-    width: 20px;
-    margin-left: 30px;
+span:nth-child(2) {
+    width: 1.25em; /* Equivalent to 20px */
+    margin-left: 1.875em; /* Equivalent to 30px */
     position: relative;
     top: 12%;
-  }
-  
-/**************SVG****************/
+}
+
+/* SVG */
 
 path.one {
     transition: 0.4s;
-    transform: translateX(-60%);
+    transform: translateX(-3.75em); /* Equivalent to -60px */
 }
 
 path.two {
     transition: 0.5s;
-    transform: translateX(-30%);
+    transform: translateX(-1.875em); /* Equivalent to -30px */
 }
 
 .cta:hover path.three {
@@ -258,7 +259,7 @@ path.two {
 
 @keyframes color_anim {
     0% {
-        fill: white;
+        fill: rgb(16, 11, 11);
     }
     50% {
         fill: #FBC638;
@@ -269,11 +270,11 @@ path.two {
 }
 
 
-
-
-
-
-
+@media screen and (max-width: 1000px) {
+    .cta {
+        font-size: 1rem; /* Adjust font size for smaller screens */
+    }
+}
 
 
 
