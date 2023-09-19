@@ -12,6 +12,7 @@
 \* * * * * * * * */
 
 body{
+    overflow: hidden;
     padding: 0px;
     margin: 0px;
     height: 100vh;
@@ -65,10 +66,43 @@ header img{
 \* * * * * * * * */
 
 main{
-
+    padding: 0;
+}
+ /* asked chatgpt to help me with a cool transition betwen menu's */
+.game-container, .menu-container {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 }
 
-.container{
+.game-container.active, .menu-container.active {
+    opacity: 1;
+    visibility: visible;
+    animation: fadeInOut 0.8s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* * * * * * * * *\
+ * menu-container   *
+\* * * * * * * * */
+
+
+.menu-container{
    display: flex;
    justify-content: center;
 }
@@ -131,6 +165,20 @@ main{
     transition: .5s;
 }
 
+/* * * * * * * * *\
+ * game-container   *
+\* * * * * * * * */
+
+.game-container{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 
 /* * * * * * * * *\
  * Footer   *
@@ -183,7 +231,7 @@ footer{
 }
 
 
-
+/* imported this from a page to create the play button on the the gamescreen */
 .cta {
     display: flex;
     padding: 0.625em 0.625em; /* Equivalent to 10px */
@@ -204,6 +252,11 @@ footer{
 .cta:hover {
     transition: 0.5s;
     box-shadow: 0.625em 0.625em 0 #FBC638; /* Equivalent to 10px */
+    cursor: pointer;
+}
+.cta:active{
+    transform: scale(0.98);
+    transition: 0.1s;
 }
 
 .cta span:nth-child(2) {
@@ -224,7 +277,7 @@ span {
 
 span:nth-child(2) {
     width: 1.25em; /* Equivalent to 20px */
-    margin-left: 1.875em; /* Equivalent to 30px */
+    margin-left: 1em; /* Equivalent to 30px */
     position: relative;
     top: 12%;
 }
