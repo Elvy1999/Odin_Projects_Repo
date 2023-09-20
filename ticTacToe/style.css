@@ -131,6 +131,7 @@ main{
 
 }
 
+
 /* create a grid contaner to hold 4 diffrent weapon options */
 
 .weapon-grid{
@@ -195,6 +196,12 @@ main{
     justify-content: center;
     font-size: 24px; /* Adjust the font size as needed */
 }
+.cell img {
+    width: 100%; /* Make the image fill the entire cell */
+    height: 100%;
+    object-fit: cover; /* This ensures the image covers the entire area without distortion */
+    object-position: center; /* Center the image within the cell */
+  }
 
 .cell:nth-child(3n+1) {
     border-left: none; /* Remove left border of each row */
@@ -213,9 +220,12 @@ main{
 }
 
 .game-message{
-    margin-bottom: 40px;
-    color: rgb(85, 12, 187);
+   
+    margin-top: 3em;
+    margin-bottom: 1em;
+    color: #0f55ee;
     font-family: "jump";
+
 }
 
 .flex_row{
@@ -240,9 +250,33 @@ main{
     object-fit: cover;
     background-color: rgb(0, 3, 1);
     border-radius: 50%;
+    box-shadow: -1px -1px 22px 2px rgba(0,0,0,0.75);
 }
 .player_card:hover,.game-message:hover{
     transform: scale(1.1);
+}
+
+
+.game_btns button{
+    font-weight: bold;
+    background-color: #ffffff;
+    font-size: 2em;
+    border-radius: .5em;
+    padding: .5em .5em;
+    cursor: pointer;
+    box-shadow: -1px -1px 22px 2px rgba(0,0,0,0.75);
+}
+
+.game_btns button:hover{
+    transform: scale(1.05);
+}
+.game_btns button:active{
+    transform:scale(0.9)
+}
+.game_btns{
+    display: flex;
+    gap: 5em;
+    margin-top: 1.5em;
 }
 
 /* * * * * * * * *\
@@ -255,10 +289,6 @@ footer{
    font-size: 20px;
    align-self: center;
 }
-
-
-
-
 
 
 /*  imported the gradient-border to give the weapon-grid border a cool look */
