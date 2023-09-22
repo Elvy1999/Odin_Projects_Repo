@@ -80,6 +80,19 @@ function selectWeapon(event){
     cell_5.appendChild(imgElement);
     WeaponsSelected();
 }
+// Set the selected player option for oponent type
+let menu_choice = null;
+const menu_options = document.querySelector(".menu-options");
+const buttons = menu_options.querySelectorAll("button");
+menu_options.addEventListener("click", (e)=>{
+    for( let btn of buttons){ btn.classList.remove("selected_option")};
+    const selected_option = e.target.closest('button');
+    console.log(selected_option);
+    selected_option.classList.add("selected_option");
+    menu_choice = selected_option.id;
+    console.log(menu_choice);
+});
+
 
 function win_check(board){
     win_combos = [ 
