@@ -117,7 +117,7 @@ main{
 .player-menu{
     display: flex;
     flex-direction: column;
-    gap: 0spx;
+    gap: 5px;
     justify-content: center;
     align-items: center;
     font-family: "jump", 'Times New Roman', Times, serif;
@@ -178,11 +178,35 @@ main{
     transform: scale(1.1);
 }
 
+.menu-options{
+    display: flex;
+    gap: 1rem;
+}
+
+.menu-options button {
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 1em;
+    padding: 1rem 2rem;
+    box-shadow: -1px -1px 22px 2px rgba(0,0,0,0.4);
+}
+
+.menu-options button:hover {
+    transform: scale(1.05);
+}
+.menu-options button:active {
+    transform: scale(0.9);
+}
+
+
 /* * * * * * * * *\
  * game-container   *
 \* * * * * * * * */
 
 .game-container{
+    margin-top: 2rem;
     width: 100vw;
     height: 60vh;
     display: flex;
@@ -241,13 +265,14 @@ main{
 }
 
 .flex_row{
+    height: fit-content;
     display: flex;
     gap:5rem;
 }
 
 .player_card{
     align-self: center;
-    margin-bottom: 20rem;
+    margin-bottom: 10rem;
     font-size: 1rem;
     display: flex;
     flex-direction: column;
@@ -266,6 +291,11 @@ main{
 }
 .player_card:hover,.game-message:hover{
     transform: scale(1.1);
+}
+
+.score{
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 
@@ -288,7 +318,7 @@ main{
 .game_btns{
     display: flex;
     gap: 5em;
-    margin-top: 1.5em;
+    margin-top: 2.5rem;
 }
 
 /* * * * * * * * *\
@@ -347,6 +377,7 @@ footer{
     font-family:"jump";
     font-size: 1.5rem;
     width: max-content;
+    
 
    
 }

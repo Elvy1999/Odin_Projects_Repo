@@ -20,6 +20,7 @@
            <div class="player_card">
             <h3> Ninja 1</h3>
             <img src="assets/ninja1.gif" alt="">
+            <div class="score" id="player-1"> 3 </div>
           </div>
           <section class="board">
             <div class="cell" id="0"><img src="assets/sword1.gif" alt=""></div>
@@ -32,9 +33,10 @@
             <div class="cell" id="7"><img src="assets/sword1.gif" alt=""></div>
             <div class="cell" id="8"><img src="assets/sword1.gif" alt=""></div>
           </section>
-          <div class="player_card" >
+          <div class="player_card">
             <h3> Ninja 2</h3>
             <img src="assets/ninja2.gif" alt="">
+            <div class="score" id="player-2"> 0 </div>
           </div>
          </div>
          <div class="game_btns">
@@ -51,10 +53,11 @@
                 <img src="assets/shuriken1.gif" alt="shriken weapon" class="weapons" id="shuriken1">
                 <img src="assets/slice1.gif" alt="knives weapon" class="weapons" id="slice1">
                 <img src="assets/mace1.gif" alt="mace weapon" class="weapons" id="mace1">
+              </section>
             </section>
-        </section>
-        <div class="wrapper">
-            <button class="cta" id="play_btn" >
+            <div class="wrapper">
+              <div id="weapons_message"><p>Select Weapons</p></div>
+              <button class="cta" id="play_btn" >
               <span>Play</span>
               <span>
                 <svg width="66px" height="43px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -66,7 +69,6 @@
                 </svg>
               </span> 
             </button>
-            <div id="weapons_message"><p>Select Weapons</p></div>
           </div>
            <section class="player-menu" id="player2">
              <h3>Ninja 2</h3>
@@ -77,6 +79,10 @@
                 <img src="assets/slice2.gif" alt="knives weapon" class="weapons" id="slice2">
                 <img src="assets/mace2.gif" alt="mace weapon" class="weapons" id="mace2">
             </section>
+            <div class="menu-options">
+              <button id="human-btn">Human</button>
+              <button id="AI-btn">AI</button>
+            </div>
            </section>
        </div>
     </main>
