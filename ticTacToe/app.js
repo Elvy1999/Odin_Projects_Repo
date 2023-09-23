@@ -128,7 +128,9 @@ const player = (playerName,playerImg) =>{
     const getPlayerScore = () => playerScore;
     
     return{
-        getPlayerName,getImgUrl,getPlayerScore
+        getPlayerName,
+        getImgUrl,
+        getPlayerScore
     }
 }
 
