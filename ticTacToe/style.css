@@ -77,6 +77,7 @@ main{
 }
 
 .game-container.active, .menu-container.active {
+    position: absolute;
     opacity: 1;
     visibility: visible;
     animation: fadeInOut 0.8s ease-in-out;
@@ -124,7 +125,7 @@ main{
    
 }
 /* quick fix because ninja2 player-menu was higher than ninja1 player-menu */
-#player2{
+#player2-menu{
     margin-top: 4rem;
 }
 
@@ -185,13 +186,13 @@ main{
     transform: scale(1.1);
 }
 
-.menu-options{
+.opponent-choice{
     margin-top: 1rem;
     display: flex;
     gap: 1rem;
 }
 
-.menu-options button {
+.opponent-choice button {
     font-weight: bold;
     font-size: 1.5rem;
     background-color: #ffffff;
@@ -201,14 +202,14 @@ main{
     box-shadow: -1px -1px 22px 2px rgba(0,0,0,0.6);
 }
 
-.menu-options button:hover {
+.opponent-choice button:hover {
     transform: scale(1.05);
 }
-.menu-options button:active {
+.opponent-choice button:active {
     transform: scale(0.9);
 }
 
-.menu-options .selected_option{
+.opponent-choice .selected_option{
     background-color: #53aa6d;
     transition: 0.5s;
 }
