@@ -9,84 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 600); // Adjust the delay in milliseconds (0.5 seconds in this example)
 });
-// const game_board_cells = document.querySelectorAll(".cell"); 
-// const menu_container = document.querySelector('.menu-container');
-// const game_container = document.querySelector('.game-container');
-// const play_btn = document.querySelector('#play_btn');
-// const restart_btn = document.querySelector('.restart');
-// const weapons_message = document.querySelector('#weapons_message'); 
-// const allWeapons = document.querySelectorAll(".weapons")
-
-
-
-// // code that switches between the menu container and the game container
-// play_btn.addEventListener('click', () => {switch_container();});
-// const menu_btn = document.querySelector('.menu');
-// menu_btn.addEventListener('click', () => {switch_container();});
-// restart_btn.addEventListener('click', () => {
-//     for(let cell of game_board_cells){
-//         cell.innerHTML = "";
-//     }
-// });
-// // function for switching containers
-// function switch_container(){
-//     if(game_container.classList.contains("active")){
-//         game_container.classList.remove("active");
-//         menu_container.classList.add("active");
-//         document.body.style.overflow = 'hidden'; // Disable scrolling, migh have to change this becasue of moible
-//     }
-//     else{
-//         game_container.classList.add("active");
-//         menu_container.classList.remove("active");
-//         document.body.style.overflow = 'hidden'; // Enable scrolling
-//     }   
-// }
-// let selectedWeapons = {
-//     player1: null,
-//     player2: null
-// };
-
-
-// document.querySelectorAll('.weapon-grid').forEach(grid => {
-//     grid.addEventListener('click', selectWeapon);
-// });
-
-// function selectWeapon(event){
-//     const weaponElement = event.target;
-//     const player_id = weaponElement.closest(".player-menu").id;
-//     const weaponSrc = weaponElement.src;
-
-//     allWeapons.forEach(weapon=>{ // selects all weapons in both containers, can be optimized later
-//         if(weapon.closest(".player-menu").id == player_id){
-//             weapon.classList.remove("selected");
-//         }
-//     });
-//     weaponElement.classList.add("selected");
-//     selectedWeapons[player_id] = weaponSrc; // Update the selected weapon with its src value for the specific player
-   
-//     // testing adding the selected weapon image to the tic tac toe board
-//     // this adds the selected image to the the 5th cell on the board
-//     const cell_5 = document.getElementById("5");
-//     if(cell_5.hasChildNodes()){cell_5.innerHTML = '';};
-//     const imgElement = document.createElement("img");
-//     imgElement.src = weaponSrc;
-//     cell_5.appendChild(imgElement);
-//     WeaponsSelected();
-// }
-// // Set the selected player option for oponent type
-// let option_choice = null;
-// const opponent_choices = document.querySelector(".opponent-choice");
-// const buttons = opponent_choices.querySelectorAll("button");
-// opponent_choices.addEventListener("click", (e)=>{
-//     for( let btn of buttons){ btn.classList.remove("selected_option")};
-
-//     const selected_option = e.target.closest('button');
-//     console.log(selected_option);
-//     selected_option.classList.add("selected_option");
-//     option_choice = selected_option.id;
-//     console.log(option_choice);
-// });
-
 
 // function win_check(board){
 //     win_combos = [ 
@@ -113,31 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // }
 
 
-// const player = (playerName,playerImg) =>{
-//     let playerScore = 0
-//     const name = playerName;
-//     const imgUrl = playerImg;
-//     const getPlayerName = () => name;
-//     const getImgUrl = () => imgUrl;
-//     const getPlayerScore = () => playerScore;
-    
-//     return{
-//         getPlayerName,
-//         getImgUrl,
-//         getPlayerScore
-//     }
-// }
 
-// function WeaponsSelected(){
-//     if(player1 != null && player2 != null){
-//         play_btn.style.display = "flex";
-//         weapons_message.style.display = "none";
-//     }
-//     else if(player1 == null && player2 == null){
-//         play_btn.style.display = "none";
-//         weapons_message.style.display = "block";
-//     }
-// }
+
 
 (function() {
     // creating module pattern for tick tac toe board
@@ -182,11 +81,13 @@ document.addEventListener('DOMContentLoaded', function() {
             player1_weapons.addEventListener("click", setPlayerWeapon);
             player2_weapons.addEventListener("click", setPlayerWeapon);
             opponent_choices.addEventListener("click", getOpponentChoice);
+            
         };
         
         //creates a player object with the weapon image that  the respective player has selected
         function setPlayerWeapon(e) {
             const weaponElement = e.target;
+            console.log(weaponElement);
             const parent_container = weaponElement.parentNode;
             const weaponSrc = weaponElement.src;
             removeSelectedWeapon(parent_container);
@@ -279,11 +180,52 @@ document.addEventListener('DOMContentLoaded', function() {
             player1 = null;
             player2 = null;
             option_choice = null;
+            Gameboard.resetBoard();
             turn = 1;
             removeOpponentChoice()
             WeaponsSelected()
             switch_container();
         }
+
+
+        function addMarker (){
+            let player = playerTurn();
+        }
+
+        function updateGameboard(player){
+            array_location = Number(e.target.id)
+            const symbol = player.getName() == "Ninja 1" ? "X": "O";
+            Gameboard.placeMarker(symbol,array_location);
+            //check for win
+            //check for draw or stalemate
+            //break out of the main function if one of these conditions is true
+        }
+
+        // function updateDisplayBoard(player){
+        //     const cell = e.target;
+        //     if(cell.hasChildNodes())
+
+        // }
+
+        const playerTurn = () => {
+            const currentPlayer = turn % 2 === 0 ? player2 : player1;
+            turn++; // Increment turn after using it
+            return currentPlayer;
+        }
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
 
 
         return{
