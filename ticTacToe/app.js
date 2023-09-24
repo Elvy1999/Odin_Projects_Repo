@@ -163,22 +163,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const displayController= (() => {
         
-        const weapons_message = document.querySelector("#weapons_message");
-        const play_btn = document.querySelector("#play_btn");
-        const opponent_choice = document.querySelector(".opponent-choice");
-        const player1_weapons = document.querySelector("#player1");
-        const player2_weapons = document.querySelector("#player2");
+
+        const opponent_choices = document.querySelector(".opponent-choice");
+        const buttons = opponent_choices.querySelectorAll("button");
 
         let player1 = null;
         let player2 = null;
+        let turn = 1;
         option_choice = null;
-       
+        
+        // creates player1 and player2 Player objects, sets opponent choice, inititates game when
+        // the play buttton is pressed
         const initGame = () => {
-            play_btn.addEventListener("click", switch_container);
+            const play_btn = document.querySelector("#play_btn");
+            const player1_weapons = document.querySelector("#player1");
+            const player2_weapons = document.querySelector("#player2");
+            play_btn.addEventListener("click", begin_game);
             player1_weapons.addEventListener("click", setPlayerWeapon);
             player2_weapons.addEventListener("click", setPlayerWeapon);
-            opponent_choice.addEventListener("click", getOpponentChoice);
+            opponent_choices.addEventListener("click", getOpponentChoice);
         };
+        
         //creates a player object with the weapon image that  the respective player has selected
         function setPlayerWeapon(e) {
             const weaponElement = e.target;
@@ -199,8 +204,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             WeaponsSelected();
-            console.log(player2.getName(), player2.getPlayerType());
+            
         }
+       
         //removes the selected class from all the weapons in the container
         const removeSelectedWeapon = (parent_container) => {
             const allWeapons = parent_container.querySelectorAll(".weapons");
@@ -208,8 +214,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 weapon.classList.remove("selected");
             });
         }
+
+        const removeOpponentChoice = () => {
+            for( let btn of buttons){ btn.classList.remove("selected_option")};
+        }
+        
         // displays the play button if both players have selected a weapon from thier respective containers
         function WeaponsSelected(){
+            const weapons_message = document.querySelector("#weapons_message");
             if(player1 != null && player2 != null){
                 play_btn.style.display = "flex";
                 weapons_message.style.display = "none";
@@ -219,10 +231,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 weapons_message.style.display = "block";
             }
         }
+       
         // gets the selected choice for the type of opponent player1 will be facing
         function getOpponentChoice(e){
-            const opponent_choices = document.querySelector(".opponent-choice");
-            const buttons = opponent_choices.querySelectorAll("button");
             for( let btn of buttons){ btn.classList.remove("selected_option")};
             const selected_option = e.target.closest('button');
             selected_option.classList.add("selected_option");
@@ -230,22 +241,48 @@ document.addEventListener('DOMContentLoaded', function() {
             if(player2 != null){
                 player2.setPlayerType(option_choice);
             }
-            console.log(player2.getPlayerType());
+            // console.log(player2.getName(), player2.getPlayerType(), player2.getWeapon());
+            // console.log(player1.getName(), player1.getPlayerType(), player1.getWeapon());
         }
         
+        // switches the display from the menu container to the game container and vise versa
         function switch_container(){
             const menu_container = document.querySelector('.menu-container');
             const game_container = document.querySelector('.game-container');
-            if(game_container.classList.contains("active")){
-                game_container.classList.remove("active");
-                menu_container.classList.add("active");
-                document.body.style.overflow = 'hidden'; // Disable scrolling, migh have to change this becasue of moible
-            }
-            else{
+            if(menu_container.classList.contains("active")){
                 game_container.classList.add("active");
                 menu_container.classList.remove("active");
+                document.body.style.overflow = 'hidden'; // Disable scrolling, migh have to change this becasue of moible
+                
+            }
+            else{
+                game_container.classList.remove("active");
+                menu_container.classList.add("active");
                 document.body.style.overflow = 'hidden'; // Enable scrolling
+
             }   
+        }
+
+        const begin_game = () => {
+            switch_container();
+            menu_btn = document.querySelector('.menu');
+            restart_btn = document.querySelector('.restart');
+            menu_btn.addEventListener("click",reset_game);
+            // //restart_btn.addEventListener("click",pass);
+        }
+
+        const reset_game = () =>{
+            const allWeapons = document.querySelectorAll('.weapons');
+            allWeapons.forEach((weapon) => {
+                weapon.classList.remove("selected");
+            })
+            player1 = null;
+            player2 = null;
+            option_choice = null;
+            turn = 1;
+            removeOpponentChoice()
+            WeaponsSelected()
+            switch_container();
         }
 
 
