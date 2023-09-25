@@ -61,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const opponent_choices = document.querySelector(".opponent-choice");
         const buttons = opponent_choices.querySelectorAll("button");
 
-        let game_started = false;
         let player1 = null;
         let player2 = null;
         let turn = 1;
@@ -191,18 +190,21 @@ document.addEventListener('DOMContentLoaded', function() {
             let player = playerTurn();
             if(updateDisplayBoard(player,e) == true)
             {
+                const game_message = document.querySelector(".game-message");
                 let result = updateGameboard(player,e);
                 if(result == "win"){
                     player.addPoint();
-                    id = player.getName() == "Ninja 1" ? "player-1" : "player-2";
-                    player_score = document.getElementById(id)
+                    let id = player.getName() == "Ninja 1" ? "player-1" : "player-2";
+                    let color =  player.getName() == "Ninja 1" ? "#052a75" : "#fdcb50"
+                    const player_score = document.getElementById(id)
                     player_score.innerHTML = player.getScore();
+                    game_message.style.color = color;
+                    game_message.textContent = `${player.getName()} Won!`
                     reset_boards();
-                    console.log(player1.getName(),player1.getScore());
-                    console.log(player2.getName(),player2.getScore());
-                    console.log("");
                 }
                 else if(result == "draw"){
+                    game_message.style.color = "#fdcb50"
+                    game_message.textContent = `Its a Draw!`
                     reset_boards();
                 }
                 // subtracting one from the turn so that it doesnt skip the next players turn
