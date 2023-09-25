@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     reset_boards();
                 }
                 else if(result == "draw"){
-                    game_message.style.color = "#fdcb50"
+                    game_message.style.color = "#ffffff"
                     game_message.textContent = `Its a Draw!`
                     reset_boards();
                 }
