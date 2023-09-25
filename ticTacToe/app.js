@@ -200,11 +200,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     player_score.innerHTML = player.getScore();
                     game_message.style.color = color;
                     game_message.textContent = `${player.getName()} Won!`
+                    showMessage();
                     reset_boards();
                 }
                 else if(result == "draw"){
-                    game_message.style.color = "#ffffff"
-                    game_message.textContent = `Its a Draw!`
+                    game_message.style.color = "#ffffff";
+                    game_message.textContent = `Its a Draw!`;
+                    showMessage()
                     reset_boards();
                 }
                 // subtracting one from the turn so that it doesnt skip the next players turn
@@ -265,7 +267,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const enableClicks = () => {
             visual_board.style.pointerEvents = 'auto';
         }
-
+        
+        const showMessage = () => {
+            const messageElement = document.querySelector('.game-message');
+            messageElement.classList.add('show');
+            setTimeout(() => {
+              messageElement.classList.remove('show');
+            }, 3000);
+          }
 
 
         return{

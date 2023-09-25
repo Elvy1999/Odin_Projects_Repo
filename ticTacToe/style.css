@@ -266,15 +266,30 @@ main{
 .cell:nth-child(n+7) {
     border-bottom: none; /* Remove bottom border of each column */
 }
-
+  
 .game-message{
-   
+    opacity: 0;
     margin-top: 3em;
     margin-bottom: 1em;
     color: #0f55ee;
     font-family: "jump";
-
 }
+
+.game-message.show {
+    display: block;
+    opacity: 1;
+    animation: fadeInAndOut 3s forwards;
+  }
+  
+@keyframes fadeInAndOut {
+    0%, 100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
 
 .flex_row{
     height: fit-content;
