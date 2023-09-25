@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const opponent_choices = document.querySelector(".opponent-choice");
         const buttons = opponent_choices.querySelectorAll("button");
 
+        let game_started = false;
         let player1 = null;
         let player2 = null;
         let turn = 1;
@@ -69,9 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // creates player1 and player2 Player objects, sets opponent choice, inititates game when
         // the play buttton is pressed
         const initGame = () => {
+            game_started = true;
             const play_btn = document.querySelector("#play_btn");
             const player1_weapons = document.querySelector("#player1");
             const player2_weapons = document.querySelector("#player2");
+            visual_board.addEventListener("click", (e) => addMarker(e));
             play_btn.addEventListener("click", begin_game);
             player1_weapons.addEventListener("click", setPlayerWeapon);
             player2_weapons.addEventListener("click", setPlayerWeapon);
@@ -162,52 +165,64 @@ document.addEventListener('DOMContentLoaded', function() {
             switch_container();
             menu_btn = document.querySelector('.menu');
             restart_btn = document.querySelector('.restart');
-            visual_board.addEventListener("click", (e) => addMarker(e));
             menu_btn.addEventListener("click",reset_game);
             // //restart_btn.addEventListener("click",pass);
         }
 
         const reset_game = () =>{
             const allWeapons = document.querySelectorAll('.weapons');
+            const bothScores = document.querySelectorAll('.score');
             allWeapons.forEach((weapon) => {
                 weapon.classList.remove("selected");
             })
+            bothScores.forEach((score) => {score.innerHTML = 0;})
             player1 = null;
             player2 = null;
             option_choice = null;
-            Gameboard.resetBoard();
-            turn = 1;
+            reset_boards();
             removeOpponentChoice()
             WeaponsSelected()
             switch_container();
+        
         }
 
         // adds player marker to the webpage gameboard and the Gamboard array
         function addMarker (e){
             let player = playerTurn();
-            if(updateDisplayBoard(player,e))
+            if(updateDisplayBoard(player,e) == true)
             {
+                let result = updateGameboard(player,e);
+                if(result == "win"){
+                    player.addPoint();
+                    id = player.getName() == "Ninja 1" ? "player-1" : "player-2";
+                    player_score = document.getElementById(id)
+                    player_score.innerHTML = player.getScore();
+                    reset_boards();
+                    console.log(player1.getName(),player1.getScore());
+                    console.log(player2.getName(),player2.getScore());
+                    console.log("");
+                }
+                else if(result == "draw"){
+                    reset_boards();
+                }
                 // subtracting one from the turn so that it doesnt skip the next players turn
+            }
+            else{
                 turn--;
-                // rerunining the main function becasue the player clicked on a cell with an image
-                return addMarker();
-            }
-            let result = updateGameboard(player,e);
-            if(result == "win"){
-                player.addPoint();
-                id = player.getName() == "Ninja 1" ? "player-1" : "player-2";
-                player_score = document.getElementById(id)
-                player_score.innerHTML = player.getScore();
-                reset_boards();
-                console.log(player1, player2);
-                console.log("how");
-            }
-            else if(result == "draw"){
-                console.log("fuck");
-                reset_boards();
             }
         }
-
+       
+        // updates the tictactoe board on the wepage
+        function updateDisplayBoard(player,e){
+            const cell = e.target;
+            if(cell.hasChildNodes()){
+                return false;}
+            const imgElement = document.createElement("img");
+            imgElement.src = player.getWeapon();
+            cell.appendChild(imgElement);
+            return true;
+        }
+        
         function updateGameboard(player,e){
             array_location = Number(e.target.id)
             const symbol = player.getName() == "Ninja 1" ? "X": "O";
@@ -215,17 +230,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if(Gameboard.checkWin() == true){return "win";}
             if(Gameboard.checkDraw() == true){return "draw";}
         }
-      
-        // updates the tictactoe board on the wepage
-        function updateDisplayBoard(player,e){
-            const cell = e.target;
-            if(cell.hasChildNodes()){return true;}
-            const imgElement = document.createElement("img");
-            imgElement.src = player.getWeapon();
-            cell.appendChild(imgElement);
-            return false;
-        }
-
+        
+        
 
         //determines whos turn it is to play
         const playerTurn = () => {
@@ -237,15 +243,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const reset_boards = () => {
             const all_cells = document.querySelectorAll('.cell');
             disableClicks();
+            Gameboard.resetBoard();
+            turn = 1;
             setTimeout(() =>{
             //clears visual gameboard
             all_cells.forEach((cell) => {if(cell.childElementCount != 0){
                 cell.removeChild(cell.firstElementChild)}})
             //reset gameboard array
-            Gameboard.resetBoard();
             //reset turn
-            turn = 1;
-            enableClicks();
+            enableClicks()
         }, 2000);
             
         }
