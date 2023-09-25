@@ -10,33 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 600); // Adjust the delay in milliseconds (0.5 seconds in this example)
 });
 
-// function win_check(board){
-//     win_combos = [ 
-//     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-//     [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-//     [0, 4, 8], [2, 4, 6] //diagonal    
-//     ]
-//     for(let combo of win_combos){
-//         let [a,b,c] = combo;
-//         if(board[a] != " " && board[a] == board[b] && board[b] == board[c]){
-//             return true;
-//         }
-//     }
-//     return false;
-// }
-
-// function draw_check(board){
-//     for(let spot in board){
-//         if ( spot != " "){  
-//             return false
-//         }
-//     }
-//     return true;
-// }
-
-
-
-
 
 (function() {
     // creating module pattern for tick tac toe board
@@ -45,7 +18,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const getBoard = () => {return gameBoard;};
         const resetBoard = () => {gameBoard.fill(" ");};
         const placeMarker = (marker,position) => {gameBoard[position] = marker;};
-        return{getBoard,resetBoard,placeMarker}
+        const checkWin = () => {
+            win_combos = [ 
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6] //diagonal    
+            ]
+            for(let combo of win_combos){
+                let [a,b,c] = combo;
+                if(gameBoard[a] != " " && gameBoard[a] == gameBoard[b] && gameBoard[b] == gameBoard[c]){
+                    return true;
+                }
+            }
+            return false;
+        }
+        const checkDraw = () =>{
+            for(let spot of gameBoard){if(spot == " "){return false;}}
+            console.log("Hello");
+            return true;
+        }
+        
+        
+        return{getBoard,resetBoard,placeMarker,checkWin,checkDraw}
     })();
 
     const Player = (name, weapon, playerType = "Human") =>{
@@ -56,13 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const addPoint = () => {score++;};
         const getPlayerType = () => {return playerType;};
         const setPlayerType = (type) => { playerType = type;};
+        const getScore = () => {return score;};
         const resetScore = () => {score = 0;};
-        return {getName,getWeapon,addPoint,getPlayerType,resetScore,setPlayerType};
+        return {getName,getWeapon,addPoint,getPlayerType,resetScore,setPlayerType,getScore};
     }
 
     const displayController= (() => {
         
-
+        const visual_board =  document.querySelector('.board');
         const opponent_choices = document.querySelector(".opponent-choice");
         const buttons = opponent_choices.querySelectorAll("button");
 
@@ -87,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
         //creates a player object with the weapon image that  the respective player has selected
         function setPlayerWeapon(e) {
             const weaponElement = e.target;
-            console.log(weaponElement);
             const parent_container = weaponElement.parentNode;
             const weaponSrc = weaponElement.src;
             removeSelectedWeapon(parent_container);
@@ -168,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             switch_container();
             menu_btn = document.querySelector('.menu');
             restart_btn = document.querySelector('.restart');
+            visual_board.addEventListener("click", (e) => addMarker(e));
             menu_btn.addEventListener("click",reset_game);
             // //restart_btn.addEventListener("click",pass);
         }
@@ -187,44 +182,81 @@ document.addEventListener('DOMContentLoaded', function() {
             switch_container();
         }
 
-
-        function addMarker (){
+        // adds player marker to the webpage gameboard and the Gamboard array
+        function addMarker (e){
             let player = playerTurn();
+            if(updateDisplayBoard(player,e))
+            {
+                // subtracting one from the turn so that it doesnt skip the next players turn
+                turn--;
+                // rerunining the main function becasue the player clicked on a cell with an image
+                return addMarker();
+            }
+            let result = updateGameboard(player,e);
+            if(result == "win"){
+                player.addPoint();
+                id = player.getName() == "Ninja 1" ? "player-1" : "player-2";
+                player_score = document.getElementById(id)
+                player_score.innerHTML = player.getScore();
+                reset_boards();
+                console.log(player1, player2);
+                console.log("how");
+            }
+            else if(result == "draw"){
+                console.log("fuck");
+                reset_boards();
+            }
         }
 
-        function updateGameboard(player){
+        function updateGameboard(player,e){
             array_location = Number(e.target.id)
             const symbol = player.getName() == "Ninja 1" ? "X": "O";
             Gameboard.placeMarker(symbol,array_location);
-            //check for win
-            //check for draw or stalemate
-            //break out of the main function if one of these conditions is true
+            if(Gameboard.checkWin() == true){return "win";}
+            if(Gameboard.checkDraw() == true){return "draw";}
+        }
+      
+        // updates the tictactoe board on the wepage
+        function updateDisplayBoard(player,e){
+            const cell = e.target;
+            if(cell.hasChildNodes()){return true;}
+            const imgElement = document.createElement("img");
+            imgElement.src = player.getWeapon();
+            cell.appendChild(imgElement);
+            return false;
         }
 
-        // function updateDisplayBoard(player){
-        //     const cell = e.target;
-        //     if(cell.hasChildNodes())
 
-        // }
-
+        //determines whos turn it is to play
         const playerTurn = () => {
             const currentPlayer = turn % 2 === 0 ? player2 : player1;
             turn++; // Increment turn after using it
             return currentPlayer;
         }
 
+        const reset_boards = () => {
+            const all_cells = document.querySelectorAll('.cell');
+            disableClicks();
+            setTimeout(() =>{
+            //clears visual gameboard
+            all_cells.forEach((cell) => {if(cell.childElementCount != 0){
+                cell.removeChild(cell.firstElementChild)}})
+            //reset gameboard array
+            Gameboard.resetBoard();
+            //reset turn
+            turn = 1;
+            enableClicks();
+        }, 2000);
+            
+        }
 
-
-
+        const disableClicks = () => {
+            visual_board.style.pointerEvents = 'none';
+        }
         
-
-
-
-
-
-
-
-
+        const enableClicks = () => {
+            visual_board.style.pointerEvents = 'auto';
+        }
 
 
 
