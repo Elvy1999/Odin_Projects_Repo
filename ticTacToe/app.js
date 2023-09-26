@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const visual_board =  document.querySelector('.board');
         const opponent_choices = document.querySelector(".opponent-choice");
         const buttons = opponent_choices.querySelectorAll("button");
+        const play_btn = document.querySelector("#play_btn");
 
         let player1 = null;
         let player2 = null;
@@ -70,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // the play buttton is pressed
         const initGame = () => {
             game_started = true;
-            const play_btn = document.querySelector("#play_btn");
             const player1_weapons = document.querySelector("#player1");
             const player2_weapons = document.querySelector("#player2");
             visual_board.addEventListener("click", (e) => addMarker(e));
@@ -119,12 +119,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // displays the play button if both players have selected a weapon from thier respective containers
         function WeaponsSelected(){
             const weapons_message = document.querySelector("#weapons_message");
+
             if(player1 != null && player2 != null){
                 play_btn.style.display = "flex";
                 weapons_message.style.display = "none";
             }
             else if(player1 == null && player2 == null){
-                play_btn.style.display = "none";
+                play_btn.style.pointerEvents = 'none';
                 weapons_message.style.display = "block";
             }
         }
@@ -144,18 +145,20 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // switches the display from the menu container to the game container and vise versa
         function switch_container(){
+            const play_btn = document.querySelector("#play_btn");
             const menu_container = document.querySelector('.menu-container');
             const game_container = document.querySelector('.game-container');
             if(menu_container.classList.contains("active")){
                 game_container.classList.add("active");
                 menu_container.classList.remove("active");
                 document.body.style.overflow = 'hidden'; // Disable scrolling, migh have to change this becasue of moible
-                
+                play_btn.style.display = "none";
             }
             else{
                 game_container.classList.remove("active");
                 menu_container.classList.add("active");
                 document.body.style.overflow = 'hidden'; // Enable scrolling
+                play_btn.style.display = "flex";
 
             }   
         }
@@ -268,12 +271,12 @@ document.addEventListener('DOMContentLoaded', function() {
             visual_board.style.pointerEvents = 'auto';
         }
         
-        const showMessage = () => {
+        function showMessage() {
             const messageElement = document.querySelector('.game-message');
             messageElement.classList.add('show');
             setTimeout(() => {
               messageElement.classList.remove('show');
-            }, 3000);
+            }, 2000);
           }
 
 
