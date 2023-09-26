@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
             menu_btn = document.querySelector('.menu');
             restart_btn = document.querySelector('.restart');
             menu_btn.addEventListener("click",reset_game);
-            // //restart_btn.addEventListener("click",pass);
+            restart_btn.addEventListener("click",restart_game);
         }
 
         const reset_game = () =>{
@@ -186,6 +186,14 @@ document.addEventListener('DOMContentLoaded', function() {
             WeaponsSelected()
             switch_container();
         
+        }
+
+        const restart_game = () => {
+            player1_score = document.getElementById("player-1");
+            player2_score = document.getElementById("player-2");
+            player1_score.textContent = player2_score.textContent = "0";
+            player1.resetScore();
+            player2.resetScore();
         }
 
         // adds player marker to the webpage gameboard and the Gamboard array
