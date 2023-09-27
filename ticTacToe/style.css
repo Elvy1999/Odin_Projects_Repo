@@ -125,9 +125,6 @@ main{
    
 }
 /* quick fix because ninja2 player-menu was higher than ninja1 player-menu */
-#player2-menu{
-    margin-top: 4rem;
-}
 
 
 .player-menu > img{
@@ -187,14 +184,16 @@ main{
 }
 
 .opponent-choice{
-    margin-top: 1rem;
+    padding: 1rem;
     display: flex;
     gap: 1rem;
 }
 
 .opponent-choice button {
+    text-align: center;
+    flex-grow: 1;
+    max-width: 50%;
     font-weight: bold;
-    font-size: 1.5rem;
     background-color: #ffffff;
     border: 1px solid transparent;
     border-radius: 1em;
@@ -290,6 +289,11 @@ main{
     }
   }
 
+  .wrapper{
+    display: flex;
+    flex-direction:column;
+    gap: 12rem;
+  }
 
 .flex_row{
     height: fit-content;
@@ -377,7 +381,7 @@ footer{
 
 /*  imported the gradient-border to give the weapon-grid border a cool look */
 .gradient-border {
-  --borderWidth: 4px;
+  --borderWidth: 7px;
   background: #080808;
   position: relative;
   border-radius: var(--borderWidth);
@@ -428,7 +432,7 @@ footer{
     padding: 0.625em 0.625em; /* Equivalent to 10px */
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.8em; /* Equivalent to 26px */
+    font-size: 1.5em; /* Equivalent to 26px */
     color: rgb(243, 240, 240);
     background: #d46b5c;
     transition: 1s;

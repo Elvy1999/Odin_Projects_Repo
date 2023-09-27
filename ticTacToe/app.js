@@ -198,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
 
+
         // adds player marker to the webpage gameboard and the Gamboard array
         function addMarker (e){
             let player = playerTurn();
@@ -217,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     imgElement.classList.add('win');
                     player_score.innerHTML = player.getScore();
                     game_message.style.color = color;
+                    playWinSound();
                     game_message.textContent = `${player.getName()} Won!`;
                     showMessage();
                     reset_boards();
@@ -227,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 else if(result == "draw"){
                     game_message.style.color = "#ffffff";
                     game_message.textContent = `Its a Draw!`;
+                    playDrawSound()
                     showMessage()
                     reset_boards();
                 }
@@ -296,6 +299,32 @@ document.addEventListener('DOMContentLoaded', function() {
               messageElement.classList.remove('show');
             }, 2000);
           }
+
+          function playWinSound() {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.currentTime = 6; // Set the starting time to 2 seconds
+            audioPlayer.play();
+
+            // Set a timeout to stop the audio after 3 seconds
+            const fadeOutInterval = setInterval(function() {
+                if (audioPlayer.volume > 0.1) {
+                  audioPlayer.volume -= 0.1;
+                } else {
+                  audioPlayer.pause();
+                  clearInterval(fadeOutInterval);
+                  audioPlayer.volume = 1; // Reset volume for next play
+                }
+              }, 300); // 300 milliseconds = 0.3 seconds
+        }
+
+        function playDrawSound() {
+            const audioPlayer = document.getElementById('audioPlayer1');
+            audioPlayer.currentTime = 0; // Set the starting time to 2 seconds
+            audioPlayer.play();
+
+            // Set a timeout to stop the audio after 3 seconds
+            
+        }
 
 
         return{
