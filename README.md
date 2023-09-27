@@ -16,3 +16,9 @@ A responsive project which allows the user to dynamically add and remove book en
 A game of tic tac toe with a ninja theme
 
 [Live Demo](https://elvy1999.github.io/Odin_Projects_Repo/ticTacToe/)
+
+## ToDo App
+
+A game of tic tac toe with a ninja theme
+
+[Live Demo](https://elvy1999.github.io/Odin_Projects_Repo/toDoApp/)
