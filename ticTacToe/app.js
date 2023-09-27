@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 weapons_message.style.display = "none";
             }
             else if(player1 == null && player2 == null){
-                play_btn.style.pointerEvents = 'none';
+                play_btn.style.display = "none";
                 weapons_message.style.display = "block";
             }
         }
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 game_container.classList.remove("active");
                 menu_container.classList.add("active");
                 document.body.style.overflow = 'hidden'; // Enable scrolling
-                play_btn.style.display = "flex";
+
 
             }   
         }
@@ -194,7 +194,9 @@ document.addEventListener('DOMContentLoaded', function() {
             player1_score.textContent = player2_score.textContent = "0";
             player1.resetScore();
             player2.resetScore();
+            reset_boards();
         }
+
 
         // adds player marker to the webpage gameboard and the Gamboard array
         function addMarker (e){
@@ -205,14 +207,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 let result = updateGameboard(player,e);
                 if(result == "win"){
                     player.addPoint();
+                    // should make all the code under this a function
                     let id = player.getName() == "Ninja 1" ? "player-1" : "player-2";
-                    let color =  player.getName() == "Ninja 1" ? "#052a75" : "#fdcb50"
-                    const player_score = document.getElementById(id)
+                    let color =  player.getName() == "Ninja 1" ? "#052a75" : "#fdcb50";
+                    const player_score = document.getElementById(id);
+                    console.log(player_score);
+                    const imgElement = player_score.previousElementSibling;
+                    console.log(imgElement);
+                    imgElement.classList.add('win');
                     player_score.innerHTML = player.getScore();
                     game_message.style.color = color;
-                    game_message.textContent = `${player.getName()} Won!`
+                    game_message.textContent = `${player.getName()} Won!`;
                     showMessage();
                     reset_boards();
+                    setTimeout(function() {
+                        imgElement.classList.remove('win');
+                    }, 2000);
                 }
                 else if(result == "draw"){
                     game_message.style.color = "#ffffff";
