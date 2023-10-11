@@ -1,9 +1,9 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   // Get the header elements
   const headerElements = document.querySelectorAll("header");
   // Apply transition effect after a short delay (adjust as needed)
-  setTimeout(function () {
-    headerElements.forEach(function (element) {
+  setTimeout(() => {
+    headerElements.forEach((element) => {
       element.style.opacity = 1;
       element.style.transform = "translateY(0)";
     });
@@ -13,10 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
 (function () {
   // creating module pattern for tick tac toe board
   const Gameboard = (() => {
-    let gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
-    const getBoard = () => {
-      return gameBoard;
-    };
+    const gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+    const getBoard = () => gameBoard;
     const resetBoard = () => {
       gameBoard.fill(" ");
     };
@@ -32,22 +30,18 @@ document.addEventListener("DOMContentLoaded", function () {
         [1, 4, 7],
         [2, 5, 8], // Columns
         [0, 4, 8],
-        [2, 4, 6], //diagonal
+        [2, 4, 6], // diagonal
       ];
-      for (let combo of win_combos) {
-        let [a, b, c] = combo;
-        if (
-          gameBoard[a] != " " &&
-          gameBoard[a] == gameBoard[b] &&
-          gameBoard[b] == gameBoard[c]
-        ) {
+      for (const combo of win_combos) {
+        const [a, b, c] = combo;
+        if (gameBoard[a] != " " && gameBoard[a] == gameBoard[b] && gameBoard[b] == gameBoard[c]) {
           return true;
         }
       }
       return false;
     };
     const checkDraw = () => {
-      for (let spot of gameBoard) {
+      for (const spot of gameBoard) {
         if (spot == " ") {
           return false;
         }
@@ -65,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function evaluate() {
       if (checkWin()) {
         if (gameBoard[0] == "O") return +10;
-        else if (gameBoard[0] == "X") return -10;
+        if (gameBoard[0] == "X") return -10;
       }
 
       return 0;
@@ -90,17 +84,16 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
         return bestVal;
-      } else {
-        let bestVal = Infinity;
-        for (let i = 0; i < 9; i++) {
-          if (gameBoard[i] === " ") {
-            gameBoard[i] = "X"; // Player is 'X'
-            bestVal = Math.min(bestVal, minimax(depth + 1, !isMax));
-            gameBoard[i] = " ";
-          }
-        }
-        return bestVal;
       }
+      let bestVal = Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (gameBoard[i] === " ") {
+          gameBoard[i] = "X"; // Player is 'X'
+          bestVal = Math.min(bestVal, minimax(depth + 1, !isMax));
+          gameBoard[i] = " ";
+        }
+      }
+      return bestVal;
     }
 
     function findBestMove() {
@@ -110,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
       for (let i = 0; i < 9; i++) {
         if (gameBoard[i] === " ") {
           gameBoard[i] = "O"; // AI is 'O'
-          let moveVal = minimax(0, false);
+          const moveVal = minimax(0, false);
           gameBoard[i] = " ";
 
           if (moveVal > bestVal) {
@@ -136,24 +129,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const Player = (name, weapon, playerType = "Human") => {
     let score = 0;
 
-    const getName = () => {
-      return name;
-    };
-    const getWeapon = () => {
-      return weapon;
-    };
+    const getName = () => name;
+    const getWeapon = () => weapon;
     const addPoint = () => {
       score++;
     };
-    const getPlayerType = () => {
-      return playerType;
-    };
+    const getPlayerType = () => playerType;
     const setPlayerType = (type) => {
       playerType = type;
     };
-    const getScore = () => {
-      return score;
-    };
+    const getScore = () => score;
     const resetScore = () => {
       score = 0;
     };
@@ -192,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
       opponent_choices.addEventListener("click", getOpponentChoice);
     };
 
-    //creates a player object with the weapon image that  the respective player has selected
+    // creates a player object with the weapon image that  the respective player has selected
     function setPlayerWeapon(e) {
       const weaponElement = e.target;
       const parent_container = weaponElement.parentNode;
@@ -211,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
       WeaponsSelected();
     }
 
-    //removes the selected class from all the weapons in the container
+    // removes the selected class from all the weapons in the container
     const removeSelectedWeapon = (parent_container) => {
       const allWeapons = parent_container.querySelectorAll(".weapons");
       allWeapons.forEach((weapon) => {
@@ -220,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const removeOpponentChoice = () => {
-      for (let btn of buttons) {
+      for (const btn of buttons) {
         btn.classList.remove("selected_option");
       }
     };
@@ -240,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // gets the selected choice for the type of opponent player1 will be facing
     function getOpponentChoice(e) {
-      for (let btn of buttons) {
+      for (const btn of buttons) {
         btn.classList.remove("selected_option");
       }
       const selected_option = e.target.closest("button");
@@ -308,16 +293,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // adds player marker to the webpage gameboard and the Gamboard array
     function addMarker(e) {
-      let player = playerTurn();
+      const player = playerTurn();
       console.log(player.getPlayerType());
       if (updateDisplayBoard(player, e) == true) {
         const game_message = document.querySelector(".game-message");
-        let result = updateGameboard(player, e);
+        const result = updateGameboard(player, e);
         if (result == "win") {
           player.addPoint();
           // should make all the code under this a function
-          let id = player.getName() == "Ninja 1" ? "player-1" : "player-2";
-          let color = player.getName() == "Ninja 1" ? "#052a75" : "#fdcb50";
+          const id = player.getName() == "Ninja 1" ? "player-1" : "player-2";
+          const color = player.getName() == "Ninja 1" ? "#052a75" : "#fdcb50";
           const player_score = document.getElementById(id);
           console.log(player_score);
           const imgElement = player_score.previousElementSibling;
@@ -329,12 +314,12 @@ document.addEventListener("DOMContentLoaded", function () {
           game_message.textContent = `${player.getName()} Won!`;
           showMessage();
           reset_boards();
-          setTimeout(function () {
+          setTimeout(() => {
             imgElement.classList.remove("win");
           }, 2000);
         } else if (result == "draw") {
           game_message.style.color = "#ffffff";
-          game_message.textContent = `Its a Draw!`;
+          game_message.textContent = "Its a Draw!";
           playDrawSound();
           showMessage();
           reset_boards();
@@ -348,9 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // updates the tictactoe board on the wepage
     function updateDisplayBoard(player, e) {
       const cell =
-        player.getPlayerType() == "Human"
-          ? e.target
-          : document.getElementById(`${Gameboard.findBestMove()}`);
+        player.getPlayerType() == "Human" ? e.target : document.getElementById(`${Gameboard.findBestMove()}`);
       console.log(cell);
       if (cell.hasChildNodes()) {
         return false;
@@ -373,10 +356,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    //determines whos turn it is to play
+    // determines whos turn it is to play
     const playerTurn = () => {
       const currentPlayer = turn % 2 === 0 ? player2 : player1;
-      turn++; // Increment turn after using it
+      turn++;
       return currentPlayer;
     };
 
@@ -386,14 +369,14 @@ document.addEventListener("DOMContentLoaded", function () {
       Gameboard.resetBoard();
       turn = 1;
       setTimeout(() => {
-        //clears visual gameboard
+        // clears visual gameboard
         all_cells.forEach((cell) => {
           if (cell.childElementCount != 0) {
             cell.removeChild(cell.firstElementChild);
           }
         });
-        //reset gameboard array
-        //reset turn
+        // reset gameboard array
+        // reset turn
         enableClicks();
       }, 2000);
     };
@@ -420,7 +403,7 @@ document.addEventListener("DOMContentLoaded", function () {
       audioPlayer.play();
 
       // Set a timeout to stop the audio after 3 seconds
-      const fadeOutInterval = setInterval(function () {
+      const fadeOutInterval = setInterval(() => {
         if (audioPlayer.volume > 0.1) {
           audioPlayer.volume -= 0.1;
         } else {
