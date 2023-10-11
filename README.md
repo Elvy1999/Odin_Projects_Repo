@@ -22,3 +22,9 @@ A game of tic tac toe with a ninja theme
 A game of tic tac toe with a ninja theme
 
 [Live Demo](https://elvy1999.github.io/Odin_Projects_Repo/toDoApp/)
+
+## Weather App
+
+An application that will display the current weather details for a location specified by the user.
+
+[Live Demo](https://elvy1999.github.io/Odin_Projects_Repo/weatherApp/)
