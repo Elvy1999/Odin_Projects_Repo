@@ -1,4 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: yellow;
-  min-height: 100vh;
+  background-color: rgb(64, 16, 185);
+  height: 100vh;
+}
+
+section {
+  height: 50vh;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+section label,
+section input {
+  font-size: 1.5rem;
+}
+section input {
+  padding: 0.2rem;
 }/*# sourceMappingURL=style.css.map */
