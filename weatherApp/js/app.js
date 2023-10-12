@@ -2,6 +2,7 @@
 const locationId = document.getElementById("location");
 const img = document.getElementById("image1");
 const tempValue = document.getElementById("temperature");
+const errorMessage = document.querySelector(".error-message");
 
 //Functions
 async function getWeatherData(e) {
@@ -13,7 +14,7 @@ async function getWeatherData(e) {
     const days = "&days=4";
     const complete = baseURL + key + location + days;
     try {
-      locationId.style.borderColor = "black";
+      errorMessage.style.opacity = "0";
       const getWeatherData = await fetch(complete);
       const data = await getWeatherData.json();
       console.log(data);
@@ -23,7 +24,7 @@ async function getWeatherData(e) {
     } catch (error) {
       // Added the error parameter
       console.error("Error fetching data:", error);
-      locationId.style.borderColor = "red";
+      errorMessage.style.opacity = "1";
       alert("Not a valid location");
     }
   }

@@ -22,10 +22,16 @@ body {
 
 .content-wrapper {
   margin-top: 3rem;
-  width: 90%;
+  width: 90vw;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 4rem;
+}
+.content-wrapper > * {
+  border-radius: 0.25rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
 }
 
 .input {
@@ -47,30 +53,26 @@ body {
 .input input::placeholder {
   color: white;
 }
+.input .error-message {
+  font-size: 1rem;
+  color: rgb(239, 5, 5);
+  word-spacing: 0.2rem;
+  opacity: 0;
+}
 
-.one {
-  background-color: white;
+.location-info {
+  background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
-  flex-direction: column;
-  padding: 6rem;
   border-radius: 0.4rem;
-}
-.one label,
-.one input {
-  font-size: 1.5rem;
-}
-.one input {
-  font-family: "Abril Fatface";
-  padding: 0.2rem;
 }
 
 .weatherDisplay {
+  font-family: "Abril Fatface";
   display: flex;
   gap: 1rem;
   align-items: center;
   font-size: 2rem;
-  color: black;
+  color: white;
 }/*# sourceMappingURL=style.css.map */
