@@ -3,6 +3,11 @@ const locationId = document.getElementById("location");
 const img = document.getElementById("image1");
 const tempValue = document.getElementById("temperature");
 const errorMessage = document.querySelector(".error-message");
+const condition = document.getElementById("condition");
+const name = document.getElementById("name");
+const region = document.getElementById("region");
+
+//variables
 
 //Functions
 async function getWeatherData(e) {
@@ -17,17 +22,24 @@ async function getWeatherData(e) {
       errorMessage.style.opacity = "0";
       const getWeatherData = await fetch(complete);
       const data = await getWeatherData.json();
+      setData(data);
       console.log(data);
-      console.log(data.current.condition.icon);
-      img.src = data.current.condition.icon;
-      tempValue.textContent = `Temperature: ${data.current.temp_f}°F`;
     } catch (error) {
       // Added the error parameter
       console.error("Error fetching data:", error);
       errorMessage.style.opacity = "1";
-      alert("Not a valid location");
     }
   }
+}
+
+function setData(data) {
+  img.src = data.current.condition.icon;
+  condition.innerText = data.current.condition.text;
+  name.innerText = data.location.name;
+  region.innerText =
+    data.location.name == data.location.region ? data.location.country : data.location.region;
+
+  //tempValue.innerText = `Temperature: ${data.current.temp_f}°F`;
 }
 
 //Event Listeners
