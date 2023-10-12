@@ -7,11 +7,13 @@ const tempValue = document.getElementById("temperature");
 async function getWeatherData(e) {
   if (e.key === "Enter" || e.keyCode === 13) {
     const locationValue = locationId.value;
-    const baseURL = "http://api.weatherapi.com/v1/current.json?";
+    const baseURL = "http://api.weatherapi.com/v1/forecast.json?";
     const key = "key=e69e61cc7dc84263bd9210927230910";
     const location = "&q=" + locationValue;
-    const complete = baseURL + key + location;
+    const days = "&days=4";
+    const complete = baseURL + key + location + days;
     try {
+      locationId.style.borderColor = "black";
       const getWeatherData = await fetch(complete);
       const data = await getWeatherData.json();
       console.log(data);
@@ -21,6 +23,7 @@ async function getWeatherData(e) {
     } catch (error) {
       // Added the error parameter
       console.error("Error fetching data:", error);
+      locationId.style.borderColor = "red";
       alert("Not a valid location");
     }
   }

@@ -4,7 +4,13 @@
   box-sizing: border-box;
 }
 
+input {
+  outline: none;
+  border: 2px solid black;
+}
+
 body {
+  font-family: "Abril Fatface";
   height: 100vh;
   width: 100vw;
   background-image: url("https://ding-09.github.io/weather-app/night.jpg");
@@ -12,10 +18,37 @@ body {
   background-size: cover;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-section {
+.content-wrapper {
+  margin-top: 3rem;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.input {
+  background-color: none;
+  text-align: center;
+}
+.input input {
+  font-family: "Abril Fatface";
+  font-size: 1.3rem;
+  border-radius: 0.4rem;
+  padding: 0.2rem;
+  text-align: center;
+  background-color: rgba(211, 211, 211, 0.2);
+  color: rgb(246, 243, 243);
+}
+.input input::-moz-placeholder {
+  color: white;
+}
+.input input::placeholder {
+  color: white;
+}
+
+.one {
   background-color: white;
   display: flex;
   justify-content: center;
@@ -25,11 +58,12 @@ section {
   padding: 6rem;
   border-radius: 0.4rem;
 }
-section label,
-section input {
+.one label,
+.one input {
   font-size: 1.5rem;
 }
-section input {
+.one input {
+  font-family: "Abril Fatface";
   padding: 0.2rem;
 }
 

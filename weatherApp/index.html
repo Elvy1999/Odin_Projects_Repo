@@ -6,17 +6,25 @@
     <title>Weather Application</title>
     <link rel="stylesheet" href="/styles/style.css" />
     <script src="js/app.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <section>
-      <div>
-        <label for="location">Enter Location:</label>
-        <input type="text" id="location" />
-      </div>
-      <div class="weatherDisplay">
-        <div id="temperature"></div>
-        <img id="image1" src="" alt="" style="height: 100px" />
-      </div>
-    </section>
+    <div class="content-wrapper">
+      <section class="input">
+        <input type="text" id="location" placeholder="Enter a city..." />
+      </section>
+      <section class="one">
+        <div>
+          <label for="location">Enter Location:</label>
+          <input type="text" id="location" />
+        </div>
+        <div class="weatherDisplay">
+          <div id="temperature"></div>
+          <img id="image1" src="" alt="" style="height: 100px" />
+        </div>
+      </section>
+    </div>
   </body>
 </html>
