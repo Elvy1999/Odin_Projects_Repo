@@ -8,13 +8,13 @@ body {
   height: 100vh;
   width: 100vw;
   background-image: url("https://ding-09.github.io/weather-app/night.jpg");
+  //background-image: url("/weatherApp/assets/sun.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 section {
   background-color: white;
   display: flex;
@@ -24,13 +24,14 @@ section {
   flex-direction: column;
   padding: 6rem;
   border-radius: 0.4rem;
-}
-section label,
-section input {
-  font-size: 1.5rem;
-}
-section input {
-  padding: 0.2rem;
+
+  label,
+  input {
+    font-size: 1.5rem;
+  }
+  input {
+    padding: 0.2rem;
+  }
 }
 
 .weatherDisplay {
@@ -39,4 +40,4 @@ section input {
   align-items: center;
   font-size: 2rem;
   color: black;
-}/*# sourceMappingURL=style.css.map */
+}
