@@ -95,7 +95,7 @@ body {
 .weatherCondition #image1 {
   position: absolute;
   bottom: 1.1rem;
-  left: 10rem;
+  left: 7rem;
 }
 
 .location {
@@ -172,6 +172,7 @@ body {
 }
 .day .weatherCondition {
   border-top: 2px solid rgb(229, 227, 227);
+  width: 273px;
 }
 .day .dayTemp {
   background: linear-gradient(94deg, rgb(247, 1, 1) 46%, rgb(12, 29, 224) 48%);
