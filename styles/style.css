@@ -27,7 +27,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4rem;
+  gap: 0rem;
 }
 .content-wrapper > * {
   border-radius: 0.25rem;
@@ -55,17 +55,15 @@ body {
   color: white;
 }
 .input .error-message {
-  font-size: 1rem;
   color: rgb(239, 5, 5);
   word-spacing: 0.2rem;
   opacity: 0;
 }
 
-.info {
+.currentInfo {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-direction: column;
 }
 
 .location-info {
@@ -84,14 +82,15 @@ body {
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: space-between;
   font-size: 1.2rem;
   color: white;
   letter-spacing: 0.2rem;
   text-align: left;
-  padding: 0;
   position: relative;
 }
-.weatherCondition #condition {
+.weatherCondition #condition,
+.weatherCondition #day1 {
   margin-top: 2.2rem;
 }
 .weatherCondition #image1 {
@@ -111,7 +110,7 @@ body {
 .tempInfo {
   color: white;
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
   align-items: center;
 }
 .tempInfo #degrees {
@@ -147,4 +146,21 @@ body {
   bottom: 0.75rem;
   left: 8.2rem;
   font-size: 0.7rem;
+}
+
+.forecast {
+  min-height: 350px;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }/*# sourceMappingURL=style.css.map */

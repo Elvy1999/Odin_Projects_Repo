@@ -9,6 +9,7 @@ const degrees = document.getElementById("degrees");
 const feelsLike = document.getElementById("feelsLike");
 const wind = document.getElementById("wind");
 const humidity = document.getElementById("humidity");
+const day1 = document.getElementById("day1");
 
 //variables
 
@@ -25,7 +26,7 @@ async function getWeatherData(e) {
       errorMessage.style.opacity = "0";
       const getWeatherData = await fetch(complete);
       const data = await getWeatherData.json();
-      setData(data);
+      setCurrentData(data);
       console.log(data);
     } catch (error) {
       // Added the error parameter
@@ -35,7 +36,7 @@ async function getWeatherData(e) {
   }
 }
 
-function setData(data) {
+function setCurrentData(data) {
   img.src = data.current.condition.icon;
   condition.innerText = data.current.condition.text;
   name.innerText = data.location.name;
@@ -45,8 +46,9 @@ function setData(data) {
   feelsLike.innerText = `FEELS LIKE: ${Math.round(data.current.feelslike_f)}`;
   wind.innerText = `WIND: ${data.current.wind_mph} MPH`;
   humidity.innerText = `HUMIDITY: ${data.current.humidity}%`;
-
-  //tempValue.innerText = `Temperature: ${data.current.temp_f}°F`;
+  const dateObject = new Date(data.current.last_updated);
+  const dayOfWeek = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(dateObject);
+  day1.innerText = dayOfWeek;
 }
 
 //Event Listeners
