@@ -12,7 +12,7 @@ input {
 
 body {
   font-family: "Abril Fatface";
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   background-image: url("https://ding-09.github.io/weather-app/night.jpg");
   background-repeat: no-repeat;
@@ -22,7 +22,7 @@ body {
 }
 
 .content-wrapper {
-  margin-top: 3rem;
+  margin: 1.5rem 0rem;
   width: 90vw;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,6 @@ body {
 .content-wrapper > * {
   border-radius: 0.25rem;
   width: 100%;
-  margin-bottom: 1rem;
 }
 
 .input {
@@ -95,7 +94,7 @@ body {
 }
 .weatherCondition #image1 {
   position: absolute;
-  bottom: -0.3rem;
+  bottom: 1.1rem;
   left: 10rem;
 }
 
@@ -150,7 +149,6 @@ body {
 
 .forecast {
   min-height: 350px;
-  background-color: red;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -163,4 +161,22 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgb(16, 13, 13);
+  border-radius: 0.4rem;
+  padding: 0.3rem 2rem;
+}
+.day .dayOfWeek {
+  font-size: 1.5rem;
+  font-weight: medium;
+  letter-spacing: 0.2rem;
+}
+.day .weatherCondition {
+  border-top: 2px solid rgb(229, 227, 227);
+}
+.day .dayTemp {
+  background: linear-gradient(94deg, rgb(247, 1, 1) 30%, rgb(12, 29, 224) 61%);
+  color: transparent; /* Make the text color transparent */
+  -webkit-background-clip: text; /* Clip the background to the text content */
+  background-clip: text; /* Clip the background to the text content */
+  font-size: 1.2rem;
 }/*# sourceMappingURL=style.css.map */
