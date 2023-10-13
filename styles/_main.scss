@@ -88,11 +88,50 @@ body {
   letter-spacing: 0.2rem;
   text-align: left;
   padding: 0;
+
+  #condition {
+    margin-top: 2.2rem;
+  }
+  #image1 {
+    margin-top: 0.8rem;
+  }
 }
 
 .location {
   display: flex;
   color: white;
-  font-size: 1.6rem;
+  font-size: 2rem;
   text-align: left;
+  border-bottom: 2px solid rgb(169, 152, 152);
+}
+
+.tempInfo {
+  color: white;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  #degrees {
+    font-size: 7rem;
+    font-weight: 900;
+    font-family: $font;
+    position: relative;
+  }
+  #degrees::after {
+    content: "\00B0 F";
+    font-size: 1.5rem;
+    position: absolute;
+    top: 1rem;
+    left: 8.3rem;
+  }
+}
+
+.otherInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: "Times New Roman", Times, serif;
+  border-left: 1px solid rgb(169, 152, 152);
+  padding-left: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
