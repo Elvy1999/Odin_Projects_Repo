@@ -178,10 +178,10 @@ body {
   }
 
   .dayTemp {
-    background: linear-gradient(94deg, rgba(247, 1, 1, 1) 30%, rgba(12, 29, 224, 1) 61%);
+    background: linear-gradient(94deg, rgba(247, 1, 1, 1) 46%, rgba(12, 29, 224, 1) 48%);
     color: transparent; /* Make the text color transparent */
     -webkit-background-clip: text; /* Clip the background to the text content */
     background-clip: text; /* Clip the background to the text content */
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 }

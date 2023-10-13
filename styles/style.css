@@ -174,9 +174,9 @@ body {
   border-top: 2px solid rgb(229, 227, 227);
 }
 .day .dayTemp {
-  background: linear-gradient(94deg, rgb(247, 1, 1) 30%, rgb(12, 29, 224) 61%);
+  background: linear-gradient(94deg, rgb(247, 1, 1) 46%, rgb(12, 29, 224) 48%);
   color: transparent; /* Make the text color transparent */
   -webkit-background-clip: text; /* Clip the background to the text content */
   background-clip: text; /* Clip the background to the text content */
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }/*# sourceMappingURL=style.css.map */
