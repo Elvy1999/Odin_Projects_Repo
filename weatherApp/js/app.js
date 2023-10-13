@@ -1,11 +1,14 @@
 //DOM elements
 const locationId = document.getElementById("location");
-const img = document.getElementById("image1");
-const tempValue = document.getElementById("temperature");
 const errorMessage = document.querySelector(".error-message");
 const condition = document.getElementById("condition");
+const img = document.getElementById("image1");
 const name = document.getElementById("name");
 const region = document.getElementById("region");
+const degrees = document.getElementById("degrees");
+const feelsLike = document.getElementById("feelsLike");
+const wind = document.getElementById("wind");
+const humidity = document.getElementById("humidity");
 
 //variables
 
@@ -38,6 +41,10 @@ function setData(data) {
   name.innerText = data.location.name;
   region.innerText =
     data.location.name == data.location.region ? data.location.country : data.location.region;
+  degrees.innerText = Math.round(data.current.temp_f);
+  feelsLike.innerText = `FEELS LIKE: ${Math.round(data.current.feelslike_f)}`;
+  wind.innerText = `WIND: ${data.current.wind_mph} MPH`;
+  humidity.innerText = `HUMIDITY: ${data.current.humidity}%`;
 
   //tempValue.innerText = `Temperature: ${data.current.temp_f}°F`;
 }
