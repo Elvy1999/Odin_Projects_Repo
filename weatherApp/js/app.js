@@ -16,7 +16,7 @@ const humidity = document.getElementById("humidity");
 async function getWeatherData(e) {
   if (e.key === "Enter" || e.keyCode === 13) {
     const locationValue = locationId.value;
-    const baseURL = "http://api.weatherapi.com/v1/forecast.json?";
+    const baseURL = "https://api.weatherapi.com/v1/forecast.json?";
     const key = "key=e69e61cc7dc84263bd9210927230910";
     const location = "&q=" + locationValue;
     const days = "&days=4";
