@@ -134,4 +134,14 @@ body {
   padding-left: 0.8rem;
   font-size: 1.2rem;
   font-weight: bold;
+}
+.otherInfo #feelsLike {
+  position: relative;
+}
+.otherInfo #feelsLike::after {
+  content: "°F";
+  position: absolute;
+  bottom: 0.7rem;
+  left: 9.2rem;
+  font-size: 0.7rem;
 }/*# sourceMappingURL=style.css.map */
