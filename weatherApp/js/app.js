@@ -31,7 +31,7 @@ function playMusic(locationValue) {
   const allAudio = [germanAudio, spanishAudio, princessAudio, peasentAudio];
   princessAudio.volume = 1; // Adjust volume to 80%
   peasentAudio.volume = 1; // Adjust volume to 80%
-  germanAudio.volume = 0.7;
+  germanAudio.volume = 0.1;
   spanishAudio.volume = 0.7;
 
   allAudio.forEach((audio) => {
@@ -40,7 +40,7 @@ function playMusic(locationValue) {
   });
 
   if (location === "germany") {
-    germanAudio.currentTime = 4;
+    germanAudio.currentTime = 9;
     germanAudio.play();
     peasentAudio.play();
   }
