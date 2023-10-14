@@ -22,6 +22,42 @@ function executor(e) {
   }
 }
 
+function playMusic(locationValue) {
+  const location = locationValue.toLowerCase();
+  const germanAudio = document.getElementById("germanAudio");
+  const spanishAudio = document.getElementById("spanishAudio");
+  const princessAudio = document.getElementById("princessAudio");
+  const peasentAudio = document.getElementById("peasentAudio");
+  const allAudio = [germanAudio, spanishAudio, princessAudio, peasentAudio];
+  princessAudio.volume = 1; // Adjust volume to 80%
+  peasentAudio.volume = 1; // Adjust volume to 80%
+  germanAudio.volume = 0.8;
+  spanishAudio.volume = 0.8;
+
+  allAudio.forEach((audio) => {
+    audio.pause();
+    audio.currentTime = 0;
+    audio.removeEventListener("loadeddata", onLoad);
+  });
+
+  function onLoad() {
+    if (location === "germany") {
+      peasentAudio.play();
+      germanAudio.currentTime = 4;
+      germanAudio.play();
+    }
+    if (location === "spain") {
+      princessAudio.play();
+      spanishAudio.play();
+    }
+  }
+
+  allAudio.forEach((audio) => {
+    audio.addEventListener("loadeddata", onLoad);
+    audio.load();
+  });
+}
+
 async function getWeatherData() {
   const locationValue = locationId.value == "" ? "china" : locationId.value;
   const baseURL = "https://api.weatherapi.com/v1/forecast.json?";
@@ -33,6 +69,7 @@ async function getWeatherData() {
     errorMessage.style.opacity = "0";
     const getWeatherData = await fetch(complete);
     const data = await getWeatherData.json();
+    playMusic(locationValue);
     transition();
     setCurrentData(data);
     createDayCards(data);
