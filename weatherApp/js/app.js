@@ -40,9 +40,9 @@ function playMusic(locationValue) {
   });
 
   if (location === "germany") {
-    germanAudio.currentTime = 9;
-    germanAudio.play();
+    germanAudio.currentTime = 10;
     peasentAudio.play();
+    germanAudio.play();
   }
   if (location === "spain") {
     princessAudio.play();
