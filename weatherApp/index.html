@@ -16,27 +16,29 @@
         <input type="text" id="location" placeholder="Enter a city..." />
         <div class="error-message">Not a valid location</div>
       </section>
-      <section class="currentInfo">
-        <div class="location-info">
-          <div class="weatherCondition">
-            <div id="day1"></div>
-            <img id="image1" src="" alt="" style="width: 50px" />
-            <div id="condition"></div>
+      <div class="weatherContent">
+        <section class="currentInfo">
+          <div class="location-info">
+            <div class="weatherCondition">
+              <div id="day1"></div>
+              <img id="image1" src="" alt="" style="width: 50px" />
+              <div id="condition"></div>
+            </div>
+            <div class="location">
+              <div><span id="name"></span>, <span id="region"></span></div>
+            </div>
           </div>
-          <div class="location">
-            <div><span id="name"></span>, <span id="region"></span></div>
+          <div class="tempInfo">
+            <div id="degrees"></div>
+            <div class="otherInfo">
+              <div id="feelsLike"></div>
+              <div id="wind"></div>
+              <div id="humidity"></div>
+            </div>
           </div>
-        </div>
-        <div class="tempInfo">
-          <div id="degrees"></div>
-          <div class="otherInfo">
-            <div id="feelsLike"></div>
-            <div id="wind"></div>
-            <div id="humidity"></div>
-          </div>
-        </div>
-      </section>
-      <section class="forecast"></section>
+        </section>
+        <section class="forecast"></section>
+      </div>
     </div>
   </body>
 </html>

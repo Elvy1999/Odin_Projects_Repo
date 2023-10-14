@@ -11,6 +11,7 @@ const wind = document.getElementById("wind");
 const humidity = document.getElementById("humidity");
 const day1 = document.getElementById("day1");
 const forecast = document.querySelector(".forecast");
+const weatherContent = document.getElementsByClassName("weatherContent");
 
 //variables
 
@@ -33,6 +34,7 @@ async function getWeatherData() {
     const getWeatherData = await fetch(complete);
     const data = await getWeatherData.json();
     console.log(data);
+    transition();
     setCurrentData(data);
     createDayCards(data);
   } catch (error) {
@@ -40,6 +42,21 @@ async function getWeatherData() {
     console.error("Error fetching data:", error);
     errorMessage.style.opacity = "1";
   }
+}
+// Creates a transition for the WeatherContent everytime the page is loaded or
+//a different location is entered
+function transition() {
+  Array.from(weatherContent).forEach((section) => {
+    if (section.classList.contains("fade-in2")) {
+      section.classList.remove("fade-in2");
+      section.offsetWidth;
+      section.classList.add("fade-in2");
+      console.log("hello bitch");
+    } else {
+      section.classList.add("fade-in2");
+      console.log("hello fucker");
+    }
+  });
 }
 
 function setCurrentData(data) {
@@ -72,15 +89,15 @@ function createDayCards(data) {
     const minTemp = dateData.day.mintemp_f;
     const maxTemp = dateData.day.maxtemp_f;
     //Creating Dom element
-    const dayElem = document.createElement("div");
+    const dayElem = document.createElement("section");
     dayElem.classList.add("day");
-    const dayOfWeekElem = document.createElement("div");
+    const dayOfWeekElem = document.createElement("section");
     dayOfWeekElem.classList.add("dayOfWeek");
     dayOfWeekElem.textContent = dayOfWeek;
     dayElem.appendChild(dayOfWeekElem);
-    const weatherConditionElem = document.createElement("div");
+    const weatherConditionElem = document.createElement("section");
     weatherConditionElem.classList.add("weatherCondition");
-    const conditionElem = document.createElement("div");
+    const conditionElem = document.createElement("section");
     conditionElem.classList.add("condition");
     conditionElem.textContent = weatherType;
     weatherConditionElem.appendChild(conditionElem);
@@ -89,7 +106,7 @@ function createDayCards(data) {
     iconElem.src = weatherIcon;
     weatherConditionElem.appendChild(iconElem);
     dayElem.appendChild(weatherConditionElem);
-    const dayTempElem = document.createElement("div");
+    const dayTempElem = document.createElement("section");
     dayTempElem.classList.add("dayTemp");
     dayTempElem.textContent = `Low ${minTemp} - ${maxTemp}°F High`;
     dayElem.appendChild(dayTempElem);
