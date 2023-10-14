@@ -37,25 +37,17 @@ function playMusic(locationValue) {
   allAudio.forEach((audio) => {
     audio.pause();
     audio.currentTime = 0;
-    audio.removeEventListener("loadeddata", onLoad);
   });
 
-  function onLoad() {
-    if (location === "germany") {
-      peasentAudio.play();
-      germanAudio.currentTime = 4;
-      germanAudio.play();
-    }
-    if (location === "spain") {
-      princessAudio.play();
-      spanishAudio.play();
-    }
+  if (location === "germany") {
+    germanAudio.currentTime = 4;
+    germanAudio.play();
+    peasentAudio.play();
   }
-
-  allAudio.forEach((audio) => {
-    audio.addEventListener("loadeddata", onLoad);
-    audio.load();
-  });
+  if (location === "spain") {
+    princessAudio.play();
+    spanishAudio.play();
+  }
 }
 
 async function getWeatherData() {
