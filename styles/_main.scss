@@ -20,7 +20,7 @@ body {
 }
 
 .content-wrapper {
-  margin: 1.5rem 0rem;
+  margin-top: 1.5rem;
   width: 90vw;
   display: flex;
   flex-direction: column;
@@ -47,6 +47,18 @@ body {
     text-align: center;
     background-color: rgba(211, 211, 211, 0.2);
     color: rgb(246, 243, 243);
+  }
+
+  .enter {
+    background-color: transparent;
+    color: white;
+    font-family: $font;
+    font-size: 1rem;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+  }
+  .enter:active {
+    transform: scale(0.95);
   }
 
   .error-message {
@@ -192,6 +204,7 @@ footer {
   text-align: center;
   margin-top: 2rem;
   color: white;
+  align-self: flex-end;
 }
 
 .fade-in2 {

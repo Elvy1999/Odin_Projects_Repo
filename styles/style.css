@@ -22,7 +22,7 @@ body {
 }
 
 .content-wrapper {
-  margin: 1.5rem 0rem;
+  margin-top: 1.5rem;
   width: 90vw;
   display: flex;
   flex-direction: column;
@@ -52,6 +52,17 @@ body {
 }
 .input input::placeholder {
   color: white;
+}
+.input .enter {
+  background-color: transparent;
+  color: white;
+  font-family: "Abril Fatface";
+  font-size: 1rem;
+  padding: 0.2rem;
+  border-radius: 0.2rem;
+}
+.input .enter:active {
+  transform: scale(0.95);
 }
 .input .error-message {
   color: rgb(239, 5, 5);
@@ -186,6 +197,7 @@ footer {
   text-align: center;
   margin-top: 2rem;
   color: white;
+  align-self: flex-end;
 }
 
 .fade-in2 {

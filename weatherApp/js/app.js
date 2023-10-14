@@ -12,12 +12,13 @@ const humidity = document.getElementById("humidity");
 const day1 = document.getElementById("day1");
 const forecast = document.querySelector(".forecast");
 const weatherContent = document.getElementsByClassName("weatherContent");
+const enterBtn = document.querySelector(".enter");
 
 //variables
 
 //Functions
 function executor(e) {
-  if (e.key === "Enter" || e.keyCode === 13) {
+  if (e.key === "Enter" || e.keyCode === 13 || e.target == enterBtn) {
     getWeatherData();
   }
 }
@@ -142,3 +143,4 @@ function createDayCards(data) {
 
 getWeatherData();
 locationId.addEventListener("keydown", executor);
+enterBtn.addEventListener("click", executor);
