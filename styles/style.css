@@ -63,7 +63,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transition: fadeIn2 1.1s;
 }
 
 .location-info {
@@ -181,6 +180,12 @@ body {
   -webkit-background-clip: text; /* Clip the background to the text content */
   background-clip: text; /* Clip the background to the text content */
   font-size: 1.4rem;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: white;
 }
 
 .fade-in2 {

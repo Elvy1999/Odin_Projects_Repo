@@ -33,7 +33,6 @@ async function getWeatherData() {
     errorMessage.style.opacity = "0";
     const getWeatherData = await fetch(complete);
     const data = await getWeatherData.json();
-    console.log(data);
     transition();
     setCurrentData(data);
     createDayCards(data);
@@ -51,14 +50,12 @@ function transition() {
       section.classList.remove("fade-in2");
       section.offsetWidth;
       section.classList.add("fade-in2");
-      console.log("hello bitch");
     } else {
       section.classList.add("fade-in2");
-      console.log("hello fucker");
     }
   });
 }
-
+//Uses the data from the API to set the html data for the current weather
 function setCurrentData(data) {
   img.src = data.current.condition.icon;
   condition.innerText = data.current.condition.text;
@@ -72,13 +69,11 @@ function setCurrentData(data) {
   const dateObject = new Date(data.current.last_updated);
   const dayOfWeek = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(dateObject);
   day1.innerText = dayOfWeek;
-  console.log(" ");
 }
-
+//Creates cards using the API data for each forecast day to display in html
 function createDayCards(data) {
   forecast.textContent = "";
   const days = data.forecast.forecastday.slice(1);
-  console.log(days);
   for (const day in days) {
     //Getting needed values from json data
     const dateData = days[day];
