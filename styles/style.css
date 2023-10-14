@@ -23,7 +23,7 @@ body {
 
 .content-wrapper {
   margin-top: 1.5rem;
-  width: 90vw;
+  width: calc(90% - 0.5% * (100vw - 1000px) / 100);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -104,6 +104,7 @@ body {
   margin-top: 2.2rem;
 }
 .weatherCondition #image1 {
+  width: 50px;
   position: absolute;
   bottom: 1.1rem;
   left: 7rem;
@@ -211,5 +212,23 @@ footer {
   }
   100% {
     opacity: 1;
+  }
+}
+@media all and (min-width: 1150px) {
+  .forecast {
+    flex-direction: row;
+  }
+  .tempInfo {
+    align-self: center;
+  }
+  .weatherCondition #day1,
+  .weatherCondition #condition {
+    margin-top: 10rem;
+  }
+  .weatherCondition #image1 {
+    width: 150px;
+    position: static;
+    bottom: none;
+    left: none;
   }
 }/*# sourceMappingURL=style.css.map */
