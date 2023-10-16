@@ -29,11 +29,11 @@ function playMusic(locationValue) {
   const spanishAudio = document.getElementById("spanishAudio");
   const princessAudio = document.getElementById("princessAudio");
   const peasentAudio = document.getElementById("peasentAudio");
+  const puertoRicoAudio = document.getElementById("puertoRico");
   const allAudio = [germanAudio, spanishAudio, princessAudio, peasentAudio];
-  princessAudio.volume = 1; // Adjust volume to 80%
-  peasentAudio.volume = 1; // Adjust volume to 80%
   germanAudio.volume = 0.1;
   spanishAudio.volume = 0.7;
+  puertoRicoAudio.volume = 0.6;
 
   allAudio.forEach((audio) => {
     audio.pause();
@@ -42,12 +42,14 @@ function playMusic(locationValue) {
 
   if (location === "germany") {
     germanAudio.currentTime = 10;
-    peasentAudio.play();
+
     germanAudio.play();
   }
   if (location === "spain") {
-    princessAudio.play();
     spanishAudio.play();
+  }
+  if (location === "puerto rico") {
+    puertoRicoAudio.play();
   }
 }
 
