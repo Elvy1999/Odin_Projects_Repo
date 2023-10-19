@@ -5,20 +5,25 @@ const condition = document.getElementById("condition");
 const img = document.getElementById("image1");
 const name = document.getElementById("name");
 const region = document.getElementById("region");
-const degrees = document.getElementById("degrees");
-const feelsLike = document.getElementById("feelsLike");
+const degrees = document.querySelector(".degrees");
+const feelsLike = document.querySelector(".feelsLike");
+const celsius = document.querySelector(".celsius");
+const feelsLikeC = document.querySelector(".feelsLikeC");
 const wind = document.getElementById("wind");
 const humidity = document.getElementById("humidity");
 const day1 = document.getElementById("day1");
 const forecast = document.querySelector(".forecast");
 const weatherContent = document.getElementsByClassName("weatherContent");
 const enterBtn = document.querySelector(".enter");
+const tempBtn = document.querySelector(".tempType");
+const temp = document.querySelector(".temp");
+const tempFeels = document.querySelector(".tempFeels");
 
 //variables
-
+console.log(tempBtn.classList.contains("f"));
 //Functions
 function executor(e) {
-  if (e.key === "Enter" || e.keyCode === 13 || e.target == enterBtn) {
+  if (e.target == tempBtn || e.target == enterBtn || e.key === "Enter" || e.keyCode === 13) {
     getWeatherData();
   }
 }
@@ -27,8 +32,6 @@ function playMusic(locationValue) {
   const location = locationValue.toLowerCase();
   const germanAudio = document.getElementById("germanAudio");
   const spanishAudio = document.getElementById("spanishAudio");
-  const princessAudio = document.getElementById("princessAudio");
-  const peasentAudio = document.getElementById("peasentAudio");
   const puertoRicoAudio = document.getElementById("puertoRico");
   const allAudio = [germanAudio, spanishAudio, princessAudio, peasentAudio];
   germanAudio.volume = 0.1;
@@ -94,8 +97,13 @@ function setCurrentData(data) {
   name.innerText = data.location.name;
   region.innerText =
     data.location.name == data.location.region ? data.location.country : data.location.region;
-  degrees.innerText = Math.round(data.current.temp_f);
-  feelsLike.innerText = `FEELS LIKE: ${Math.round(data.current.feelslike_f)}`;
+  if (tempBtn.classList.contains("f")) {
+    temp.innerText = Math.round(data.current.temp_f);
+    tempFeels.innerText = `FEELS LIKE: ${Math.round(data.current.feelslike_f)}`;
+  } else {
+    temp.innerText = Math.round(data.current.temp_c);
+    tempFeels.innerText = `FEELS LIKE: ${Math.round(data.current.feelslike_c)}`;
+  }
   wind.innerText = `WIND: ${data.current.wind_mph} MPH`;
   humidity.innerText = `HUMIDITY: ${data.current.humidity}%`;
   const dateObject = new Date(data.current.last_updated);
@@ -113,8 +121,15 @@ function createDayCards(data) {
     const dayOfWeek = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(dateObject);
     const weatherType = dateData.day.condition.text;
     const weatherIcon = dateData.day.condition.icon;
-    const minTemp = dateData.day.mintemp_f;
-    const maxTemp = dateData.day.maxtemp_f;
+    let minTemp;
+    let maxTemp;
+    if (tempBtn.classList.contains("f")) {
+      minTemp = dateData.day.mintemp_f;
+      maxTemp = dateData.day.maxtemp_f;
+    } else {
+      minTemp = dateData.day.mintemp_c;
+      maxTemp = dateData.day.maxtemp_c;
+    }
     //Creating Dom element
     const dayElem = document.createElement("section");
     dayElem.classList.add("day");
@@ -135,7 +150,11 @@ function createDayCards(data) {
     dayElem.appendChild(weatherConditionElem);
     const dayTempElem = document.createElement("section");
     dayTempElem.classList.add("dayTemp");
-    dayTempElem.textContent = `Low ${minTemp} - ${maxTemp}°F High`;
+    if (tempBtn.classList.contains("f")) {
+      dayTempElem.textContent = `Low ${minTemp} - ${maxTemp}°F High`;
+    } else {
+      dayTempElem.textContent = `Low ${minTemp} - ${maxTemp}°C High`;
+    }
     dayElem.appendChild(dayTempElem);
     forecast.appendChild(dayElem);
   }
@@ -146,3 +165,11 @@ function createDayCards(data) {
 getWeatherData();
 locationId.addEventListener("keydown", executor);
 enterBtn.addEventListener("click", executor);
+tempBtn.addEventListener("click", (e) => {
+  e.target.classList.toggle("f");
+  temp.classList.toggle("degrees");
+  temp.classList.toggle("celsius");
+  tempFeels.classList.toggle("feelsLike");
+  tempFeels.classList.toggle("feelsLikeC");
+  executor(e);
+});

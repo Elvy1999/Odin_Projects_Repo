@@ -40,13 +40,25 @@ body {
     &::placeholder {
       color: white;
     }
+    width: 12rem;
     font-family: $font;
     font-size: 1.3rem;
     border-radius: 0.4rem;
-    padding: 0.2rem;
+    padding: 0.2rem 0rem;
     text-align: center;
     background-color: rgba(211, 211, 211, 0.2);
     color: rgb(246, 243, 243);
+  }
+  .tempType {
+    background-color: black;
+    color: white;
+    font-family: $font;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   .enter {
@@ -56,9 +68,9 @@ body {
     font-size: 1rem;
     padding: 0.2rem;
     border-radius: 0.2rem;
-  }
-  .enter:active {
-    transform: scale(0.95);
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   .error-message {
@@ -127,14 +139,22 @@ body {
   display: flex;
   gap: 2.5rem;
   align-items: center;
-  #degrees {
+  .degrees,
+  .celsius {
     font-size: 6.5rem;
     font-weight: 900;
     font-family: $font;
     position: relative;
   }
-  #degrees::after {
+  .degrees::after {
     content: "\00B0 F";
+    font-size: 1.5rem;
+    position: absolute;
+    top: 1rem;
+    left: 7.3rem;
+  }
+  .celsius::after {
+    content: "\00B0 C";
     font-size: 1.5rem;
     position: absolute;
     top: 1rem;
@@ -152,12 +172,20 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
 
-  #feelsLike {
+  .feelsLike,
+  .feelsLikeC {
     position: relative;
   }
 
-  #feelsLike::after {
+  .feelsLike::after {
     content: "\00B0 F";
+    position: absolute;
+    bottom: 0.75rem;
+    left: 8.6rem;
+    font-size: 0.7rem;
+  }
+  .feelsLikeC::after {
+    content: "\00B0 C";
     position: absolute;
     bottom: 0.75rem;
     left: 8.6rem;
@@ -229,6 +257,11 @@ footer {
 @media all and (min-width: 1100px) {
   .forecast {
     flex-direction: row;
+  }
+  .input {
+    input {
+      width: 18rem;
+    }
   }
   .tempInfo {
     align-self: center;
