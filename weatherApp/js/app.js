@@ -101,7 +101,10 @@ function setCurrentData(data) {
     temp.innerText = Math.round(data.current.temp_f);
     tempFeels.innerText = `FEELS LIKE: ${Math.round(data.current.feelslike_f)}`;
   } else {
-    temp.innerText = Math.round(data.current.temp_c);
+    temp.innerText =
+      Math.round(data.current.temp_c) < 10
+        ? `0${Math.round(data.current.temp_c)}`
+        : Math.round(data.current.temp_c);
     tempFeels.innerText = `FEELS LIKE: ${Math.round(data.current.feelslike_c)}`;
   }
   wind.innerText = `WIND: ${data.current.wind_mph} MPH`;
