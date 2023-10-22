@@ -31,7 +31,7 @@ class Tree {
 
     return node;
   }
-
+  // insert a node in the balanced binary tree
   insert(value, root = this.root) {
     if (root == null) {
       root = new Node(value);
@@ -43,6 +43,43 @@ class Tree {
       root.right = this.insert(value, root.right);
     }
     return root;
+  }
+  //helper function for delete method
+  highestNode(tNode) {
+    if (tNode.right == null) {
+      return tNode;
+    }
+    const highestNode = this.highestNode(tNode.right); //28
+    tNode.right = highestNode.left;
+    return highestNode;
+  }
+
+  // deletes a node with the specified value if it exist in the binary tree
+  delete(value, tNode = this.root) {
+    if (value == tNode.data) {
+      if (tNode.left == null && tNode.right == null) {
+        return null;
+      }
+      if (tNode.left != null && tNode.right != null) {
+        const node = this.highestNode(tNode.left);
+        node.right = tNode.right;
+        node.left = tNode.left.data == node.data ? node.left : tNode.left;
+        if (tNode == this.root) this.root = node;
+        return node;
+      }
+      if (tNode.left != null) {
+        return tNode.left;
+      }
+      if (tNode.right != null) {
+        return tNode.right;
+      }
+    }
+    if (value > tNode.data) {
+      tNode.right = this.delete(value, tNode.right);
+    } else if (value < tNode.data) {
+      tNode.left = this.delete(value, tNode.left);
+    }
+    return tNode;
   }
 
   //Outputs the balanced binary tree
@@ -66,4 +103,25 @@ tree.prettyPrint();
 tree.insert(2);
 tree.insert(2000000);
 tree.insert(5000);
+tree.insert(300);
 tree.prettyPrint();
+console.log(tree.insert(6));
+
+const tree2 = new Tree([1, 5, 10, 30, 50]);
+tree2.buildTree();
+tree2.insert(12);
+tree2.insert(20);
+tree2.insert(15);
+tree2.insert(-5);
+tree2.insert(6);
+tree2.insert(14);
+tree2.insert(13);
+tree2.prettyPrint();
+tree2.delete(20);
+tree2.delete(30);
+tree2.delete(10);
+tree2.delete(6);
+tree2.delete(-5);
+tree2.delete(1);
+tree2.delete(15);
+tree2.prettyPrint();
