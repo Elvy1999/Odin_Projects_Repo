@@ -19,3 +19,5 @@ let prices = [7, 4, 2, 3, 6, 1];
 console.log(maxProfit(prices));
 let prices2 = [7, 6, 4, 3, 1];
 console.log(maxProfit(prices2));
+
+// I need to refractor the code above to make it faster;

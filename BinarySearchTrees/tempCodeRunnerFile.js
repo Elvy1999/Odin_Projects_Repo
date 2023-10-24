@@ -1,2 +1,3 @@
-let max = Math.max(...profitArray) > 0 ? Math.max(...profitArray) : 0;
-  return profitArray;
+tree.insert(2000000);
+// tree.insert(5000);
+// tree.insert(300);

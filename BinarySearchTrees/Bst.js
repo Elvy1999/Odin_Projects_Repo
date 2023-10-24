@@ -113,15 +113,35 @@ class Tree {
       return iterator;
     }
   }
+
+  // Traverse the tree in breadth-first level order and add the values from the nodes to an array
+  levelOrder(iterator = this.root) {
+    if (iterator == null) return;
+    const array = [];
+    const queue = [];
+    while (iterator != undefined) {
+      array.push(iterator.data);
+      if (iterator.left) {
+        queue.push(iterator.left);
+      }
+      if (iterator.right) {
+        queue.push(iterator.right);
+      }
+      iterator = queue.shift();
+    }
+    return array;
+  }
 }
 
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+const tree = new Tree([1, 7, 4, 23, 8, 9]);
 tree.buildTree();
 tree.prettyPrint();
 tree.insert(2);
-tree.insert(2000000);
-tree.insert(5000);
-tree.insert(300);
+tree.insert(1000);
+tree.insert(-1);
+// tree.insert(2000000);
+// tree.insert(5000);
+// tree.insert(300);
 tree.prettyPrint();
 console.log(tree.insert(6));
 
@@ -139,4 +159,10 @@ tree2.insert(-3);
 tree2.insert(-4);
 tree2.insert(11);
 tree2.prettyPrint();
-console.log(tree2.find(14));
+console.log(tree2.find(11));
+tree.prettyPrint();
+console.log(tree.levelOrder());
+const tree3 = new Tree([1]);
+tree3.buildTree();
+tree3.insert(1);
+tree3.prettyPrint();
