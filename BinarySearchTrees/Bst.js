@@ -46,12 +46,14 @@ class Tree {
   }
   //helper function for delete method
   highestNode(tNode) {
-    if (tNode.right == null) {
-      return tNode;
+    let prev = tNode;
+    while (tNode.right) {
+      prev = tNode;
+      tNode = tNode.right;
     }
-    const highestNode = this.highestNode(tNode.right); //28
-    tNode.right = highestNode.left;
-    return highestNode;
+    if (tNode.left) prev.right = tNode.left;
+    else prev.right = null;
+    return tNode;
   }
 
   // deletes a node with the specified value if it exist in the binary tree
@@ -95,6 +97,22 @@ class Tree {
       this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
   }
+
+  // refactoring this to an iterative approach would be more optimal, I believe, because of the length
+  // of the retrace back to the original return if the value is very far nested in the tree.
+  //accepts a value and returns the node with the given value
+  find(value, iterator = this.root) {
+    if (iterator == null) return false;
+    else if (iterator.data == value) return iterator;
+
+    if (value < iterator.data) {
+      iterator = this.find(value, iterator.left);
+      return iterator;
+    } else if (value > iterator.data) {
+      iterator = this.find(value, iterator.right);
+      return iterator;
+    }
+  }
 }
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
@@ -110,18 +128,15 @@ console.log(tree.insert(6));
 const tree2 = new Tree([1, 5, 10, 30, 50]);
 tree2.buildTree();
 tree2.insert(12);
-tree2.insert(20);
-tree2.insert(15);
 tree2.insert(-5);
 tree2.insert(6);
 tree2.insert(14);
 tree2.insert(13);
+tree2.insert(-6);
+tree2.insert(0);
+tree2.insert(3);
+tree2.insert(-3);
+tree2.insert(-4);
+tree2.insert(11);
 tree2.prettyPrint();
-tree2.delete(20);
-tree2.delete(30);
-tree2.delete(10);
-tree2.delete(6);
-tree2.delete(-5);
-tree2.delete(1);
-tree2.delete(15);
-tree2.prettyPrint();
+console.log(tree2.find(14));
