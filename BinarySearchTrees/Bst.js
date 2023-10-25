@@ -69,18 +69,11 @@ class Tree {
         if (tNode == this.root) this.root = node;
         return node;
       }
-      if (tNode.left != null) {
-        return tNode.left;
-      }
-      if (tNode.right != null) {
-        return tNode.right;
-      }
+      if (tNode.left != null) return tNode.left;
+      if (tNode.right != null) return tNode.right;
     }
-    if (value > tNode.data) {
-      tNode.right = this.delete(value, tNode.right);
-    } else if (value < tNode.data) {
-      tNode.left = this.delete(value, tNode.left);
-    }
+    if (value > tNode.data) tNode.right = this.delete(value, tNode.right);
+    else if (value < tNode.data) tNode.left = this.delete(value, tNode.left);
     return tNode;
   }
 
@@ -131,14 +124,77 @@ class Tree {
     }
     return array;
   }
+
+  // traverse the tree and output nodes in depth first order
+  preorder(iterator = this.root, array = []) {
+    if (iterator == null) return;
+    array.push(iterator.data);
+    this.preorder(iterator.left, array);
+    this.preorder(iterator.right, array);
+    return array;
+  }
+  // fun fact, this inserts all the elemnts in the array in order from least to greatest, the name of the methods give it away haha
+  inorder(iterator = this.root, array = []) {
+    if (iterator == null) return;
+    this.inorder(iterator.left, array);
+    array.push(iterator.data);
+    this.inorder(iterator.right, array);
+    return array;
+  }
+
+  postorder(iterator = this.root, array = []) {
+    if (iterator == null) return;
+    this.postorder(iterator.left, array);
+    this.postorder(iterator.right, array);
+    array.push(iterator.data);
+    return array;
+  }
+  // returns the height of a given node
+  height(iterator = this.root) {
+    if (iterator == null) return -1;
+
+    let leftHeight = this.height(iterator.left);
+    let rightHeight = this.height(iterator.right);
+
+    return 1 + Math.max(leftHeight, rightHeight);
+  }
+
+  // accepts a node and returns its depth. Depth is defined as the number of edges
+  //in path from a given node to the tree’s root node.
+  depth(node) {
+    // fix bug where the function does not end if the node does not exist in the tree
+    let depth = 0;
+    let iterator = this.root;
+    while (iterator != node) {
+      if (node.data < iterator.data) {
+        iterator = iterator.left;
+        depth++;
+      } else if (node.data > iterator.data) {
+        iterator = iterator.right;
+        depth++;
+      }
+    }
+    return depth;
+  }
+
+  //checks if the tree is balanced. A balanced tree is one where the difference between heights
+  //of left subtree and right subtree of every node is not more than 1.
+  isBalanced(node = this.root) {
+    // I have to break this down later, I got this code from somebody else
+    if (node === null) return true;
+    const heightDiff = Math.abs(this.height(node.left) - this.height(node.right));
+    return heightDiff <= 1 && this.isBalanced(node.left) && this.isBalanced(node.right);
+  }
 }
 
 const tree = new Tree([1, 7, 4, 23, 8, 9]);
 tree.buildTree();
 tree.prettyPrint();
 tree.insert(2);
-tree.insert(1000);
+
 tree.insert(-1);
+tree.insert(3);
+tree.insert(5);
 // tree.insert(2000000);
 // tree.insert(5000);
 // tree.insert(300);
@@ -161,8 +217,13 @@ tree2.insert(11);
 tree2.prettyPrint();
 console.log(tree2.find(11));
 tree.prettyPrint();
-console.log(tree.levelOrder());
-const tree3 = new Tree([1]);
-tree3.buildTree();
-tree3.insert(1);
-tree3.prettyPrint();
+console.log(tree.height());
+console.log("depth", tree.depth(tree.find(8)));
+tree.delete(6);
+tree.delete(3);
+tree.delete(5);
+tree.insert(10);
+tree.insert(100);
+tree.delete(2);
+tree.prettyPrint();
+console.log(tree.isBalanced());
