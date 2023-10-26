@@ -21,3 +21,14 @@ let prices2 = [7, 6, 4, 3, 1];
 console.log(maxProfit(prices2));
 
 // I need to refractor the code above to make it faster;
+
+function repeats(numbers) {
+  let singleNumbers = numbers.filter((target) => {
+    return numbers.filter((number) => number == target).length == 1;
+  });
+  let sum = singleNumbers.reduce((acc, val) => acc + val, 0);
+  console.log(sum);
+  return singleNumbers;
+}
+let numbers = [5, 10, 19, 13, 10, 13];
+repeats(numbers);

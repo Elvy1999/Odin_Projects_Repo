@@ -224,6 +224,7 @@ tree.delete(3);
 tree.delete(5);
 tree.insert(10);
 tree.insert(100);
+tree.insert(1000);
 tree.delete(2);
 tree.prettyPrint();
 console.log(tree.isBalanced());
