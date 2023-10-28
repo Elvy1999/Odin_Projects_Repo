@@ -32,3 +32,5 @@ function repeats(numbers) {
 }
 let numbers = [5, 10, 19, 13, 10, 13];
 repeats(numbers);
+console.log(numbers[0]);
+console.log(maxProfit(numbers));
