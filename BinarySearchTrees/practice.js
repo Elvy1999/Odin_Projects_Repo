@@ -74,7 +74,19 @@ strs = ["a"];
 console.log(groupAnagrams(strs));
 strs = ["cab", "tin", "pew", "duh", "may", "ill", "buy", "bar", "max", "doc"];
 console.log(groupAnagrams(strs));
-let word = "pathologist";
-let index = word.split("").reduce((sum, letter) => {
-  return sum + letter.charCodeAt(0);
-}, 0);
+
+// another possible solution which is faster, still not the best though
+var groupAnagrams2 = (words) => {
+  const anagramTable = {};
+  for (let word of words) {
+    const sortedWord = word.split("").sort().join("");
+    if (anagramTable.hasOwnProperty(sortedWord)) {
+      anagramTable[sortedWord].push(word);
+    } else {
+      anagramTable[sortedWord] = [word];
+    }
+  }
+  return Object.values(anagramTable);
+};
+
+console.log(groupAnagrams2(words));
