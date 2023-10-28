@@ -149,15 +149,6 @@ class Tree {
     array.push(iterator.data);
     return array;
   }
-  // returns the height of a given node
-  height(iterator = this.root) {
-    if (iterator == null) return -1;
-
-    let leftHeight = this.height(iterator.left);
-    let rightHeight = this.height(iterator.right);
-
-    return 1 + Math.max(leftHeight, rightHeight);
-  }
 
   // accepts a node and returns its depth. Depth is defined as the number of edges
   //in path from a given node to the tree’s root node.
@@ -175,6 +166,15 @@ class Tree {
       }
     }
     return depth;
+  }
+  // returns the height of a given node
+  height(iterator = this.root) {
+    if (iterator == null) return -1;
+
+    let leftHeight = this.height(iterator.left);
+    let rightHeight = this.height(iterator.right);
+
+    return 1 + Math.max(leftHeight, rightHeight);
   }
 
   //checks if the tree is balanced. A balanced tree is one where the difference between heights
