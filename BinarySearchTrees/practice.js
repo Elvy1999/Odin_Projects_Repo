@@ -90,3 +90,26 @@ var groupAnagrams2 = (words) => {
 };
 
 console.log(groupAnagrams2(words));
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+//Given an integer array nums and an integer k, return the k most frequent elements.
+//You may return the answer in any order.
+
+var topKFrequent = function (nums, k) {
+  const frequentNums = {};
+  for (let num of nums) {
+    if (frequentNums.hasOwnProperty(`${num}`)) frequentNums[`${num}`]++;
+    else frequentNums[num] = 1;
+  }
+  let sortedNums = Object.keys(frequentNums).sort((a, b) => frequentNums[b] - frequentNums[a]);
+  let final = []
+  for(let i =0; i<k, i++) {final.push(Number(sortedNums[i]));}
+  return sortedNums;
+};
+
+let nums = [1, 1, 1, 2, 2, 3];
+console.log(topKFrequent(nums, 2));
