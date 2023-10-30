@@ -1,3 +1,4 @@
+import set from "set";
 /**
  * @param {number[]} prices
  * @return {number}
@@ -126,7 +127,7 @@ console.log(topKFrequent(nums, 1));
 //case of two or more integers have the same number of 1's you have to sort them in ascending order.
 var sortByBits = function (arr) {
   const bitsCount = {};
-  for (let num in arr) {
+  for (let num of arr) {
     const preservedNum = num;
     let powerOf2 = num > 0 ? Math.floor(Math.log2(num)) : 0;
     let counter = 0;
@@ -141,8 +142,14 @@ var sortByBits = function (arr) {
     if (bitsCount.hasOwnProperty(`${counter}`)) bitsCount[`${counter}`].push(Number(preservedNum));
     else bitsCount[`${counter}`] = [Number(preservedNum)];
   }
-  //bitsCount = Object.entries(bitsCount).sort((a, b) => a - b);
-  return bitsCount;
+  for (key in bitsCount) {
+    bitsCount[key] = bitsCount[key].sort((a, b) => a - b);
+  }
+  const final = [];
+  for (let num of Object.values(bitsCount)) {
+    final.push(...num);
+  }
+  return final;
 };
 //Output: [0,1,2,4,8,3,5,6,7]
 let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -150,5 +157,81 @@ console.log(Math.floor(Math.log2(127)));
 console.log(Math.log2(127));
 console.log(Math.log2(5));
 console.log(sortByBits(arr));
-let arrs = [10000, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 20000000000000000000000];
+let arrs = [1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1];
 console.log(sortByBits(arrs));
+
+// Given an integer array nums, return an array answer such that answer[i] is equal to
+
+//the product of all the elements of nums except nums[i].
+
+// The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+// You must write an algorithm that runs in O(n) time and without using the division operation.
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function (nums) {
+  const finalArray = [];
+  for (let i = 0; i < nums.length; i++) {
+    let total = 1;
+    for (let y = 0; y < nums.length; y++) {
+      if (y != i) {
+        total *= nums[y];
+      }
+    }
+    finalArray.push(total);
+  }
+  return finalArray;
+};
+
+// I need to find a faster solution
+var productExceptSelfs = function (nums) {
+  const finalArray = [];
+
+  return finalArray;
+};
+
+// Output: [24,12,8,6]
+nums = [1, 2, 3, 4];
+console.log(productExceptSelf(nums));
+nums = [-1, 1, 0, -3, 3];
+console.log(productExceptSelf(nums));
+nums = [0, 0];
+console.log(productExceptSelf(nums));
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function (nums) {
+  if (nums.length == 0) return 0;
+  nums = nums.sort((a, b) => a - b);
+
+  let maxCounter = [];
+  let counter = 1;
+  let a = 0;
+  let b = 1;
+  while (b < nums.length) {
+    if (Math.abs(nums[a] - nums[b]) == 1) counter++;
+    else {
+      maxCounter.push(counter);
+      counter = 1;
+    }
+    a = b;
+    b++;
+  }
+  maxCounter.push(counter);
+  maxCounter = maxCounter.sort((a, b) => b - a);
+  return nums;
+};
+nums = [100, 4, 200, 1, 3, 2, 6];
+console.log(longestConsecutive(nums));
+
+nums = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1];
+console.log(longestConsecutive(nums));
+nums = [9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6];
+console.log(longestConsecutive(nums));
+nums = [1, 2, 0, 1];
+console.log(longestConsecutive(nums));
