@@ -1,2 +1,1 @@
-d.split("").sort();
-    let sortedWord = sortedL
+console.log(sortByBits(arr));

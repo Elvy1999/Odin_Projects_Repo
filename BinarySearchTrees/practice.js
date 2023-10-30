@@ -106,10 +106,49 @@ var topKFrequent = function (nums, k) {
     else frequentNums[num] = 1;
   }
   let sortedNums = Object.keys(frequentNums).sort((a, b) => frequentNums[b] - frequentNums[a]);
-  let final = []
-  for(let i =0; i<k, i++) {final.push(Number(sortedNums[i]));}
-  return sortedNums;
+  let final = [];
+  for (let i = 0; i < k; i++) final.push(Number(sortedNums[i]));
+  return final;
 };
 
 let nums = [1, 1, 1, 2, 2, 3];
 console.log(topKFrequent(nums, 2));
+nums = [1];
+console.log(topKFrequent(nums, 1));
+
+/**
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+
+//You are given an integer array arr. Sort the integers in the array in ascending order by the
+//number of 1's in their binary representation and in
+//case of two or more integers have the same number of 1's you have to sort them in ascending order.
+var sortByBits = function (arr) {
+  const bitsCount = {};
+  for (let num in arr) {
+    const preservedNum = num;
+    let powerOf2 = num > 0 ? Math.floor(Math.log2(num)) : 0;
+    let counter = 0;
+    while (num != 0) {
+      let minus = 2 ** powerOf2;
+      if (num - minus >= 0) {
+        num = num - minus;
+        counter++;
+      }
+      powerOf2--;
+    }
+    if (bitsCount.hasOwnProperty(`${counter}`)) bitsCount[`${counter}`].push(Number(preservedNum));
+    else bitsCount[`${counter}`] = [Number(preservedNum)];
+  }
+  //bitsCount = Object.entries(bitsCount).sort((a, b) => a - b);
+  return bitsCount;
+};
+//Output: [0,1,2,4,8,3,5,6,7]
+let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+console.log(Math.floor(Math.log2(127)));
+console.log(Math.log2(127));
+console.log(Math.log2(5));
+console.log(sortByBits(arr));
+let arrs = [10000, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 20000000000000000000000];
+console.log(sortByBits(arrs));
