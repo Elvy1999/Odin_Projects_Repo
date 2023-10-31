@@ -1,4 +1,3 @@
-import set from "set";
 /**
  * @param {number[]} prices
  * @return {number}
@@ -209,22 +208,25 @@ var longestConsecutive = function (nums) {
   if (nums.length == 0) return 0;
   nums = nums.sort((a, b) => a - b);
 
-  let maxCounter = [];
+  let maxCounter = 0;
   let counter = 1;
   let a = 0;
   let b = 1;
   while (b < nums.length) {
+    while (nums[a] == nums[b]) {
+      a = b;
+      b++;
+    }
     if (Math.abs(nums[a] - nums[b]) == 1) counter++;
     else {
-      maxCounter.push(counter);
+      maxCounter = Math.max(maxCounter, counter);
       counter = 1;
     }
     a = b;
     b++;
   }
-  maxCounter.push(counter);
-  maxCounter = maxCounter.sort((a, b) => b - a);
-  return nums;
+  maxCounter = Math.max(counter, maxCounter);
+  return maxCounter;
 };
 nums = [100, 4, 200, 1, 3, 2, 6];
 console.log(longestConsecutive(nums));
@@ -235,3 +237,48 @@ nums = [9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6];
 console.log(longestConsecutive(nums));
 nums = [1, 2, 0, 1];
 console.log(longestConsecutive(nums));
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+// A phrase is a palindrome if, after converting all uppercase letters into lowercase letters
+// and removing all non-alphanumeric characters, it reads the same forward and backward.
+// Alphanumeric characters include letters and numbers.
+// Given a string s, return true if it is a palindrome, or false otherwise.
+var isPalindrome = function (s) {
+  let filteredWord = "";
+  for (let letter of s) {
+    if (/^[a-zA-Z0-9]+$/.test(letter)) filteredWord = filteredWord + letter.toLowerCase();
+  }
+  let possiblePalindrome = "";
+  for (let i = filteredWord.length - 1; i >= 0; i--) {
+    possiblePalindrome = possiblePalindrome + filteredWord[i];
+  }
+
+  return possiblePalindrome == filteredWord;
+};
+// trying to make the solution faster
+var isPalindromes = function (s) {
+  let pointerA = 0;
+  let pointerB = s.length - 1;
+  while (pointerA < pointerB) {
+    while (!/^[a-zA-Z0-9]+$/.test(s[pointerA])) {
+      pointerA = pointerA + 1;
+    }
+    while (!/^[a-zA-Z0-9]+$/.test(s[pointerB])) {
+      pointerB = pointerB - 1;
+    }
+    if (pointerA > s.length() - 1 || pointerB < 0) return false;
+    if (s[pointerA].toLowerCase() != s[pointerB].toLowerCase()) return false;
+    pointerA++;
+    pointerB--;
+  }
+  return true;
+};
+
+let s = ".,";
+console.log(s);
+//Output: true
+//console.log(isPalindrome(s));
+console.log(isPalindromes(s));
