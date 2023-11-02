@@ -269,7 +269,7 @@ var isPalindromes = function (s) {
     while (!/^[a-zA-Z0-9]+$/.test(s[pointerB])) {
       pointerB = pointerB - 1;
     }
-    if (pointerA > s.length() - 1 || pointerB < 0) return false;
+    if (pointerA > s.length - 1 || pointerB < 0) return false;
     if (s[pointerA].toLowerCase() != s[pointerB].toLowerCase()) return false;
     pointerA++;
     pointerB--;
@@ -282,3 +282,182 @@ console.log(s);
 //Output: true
 //console.log(isPalindrome(s));
 console.log(isPalindromes(s));
+
+// Given an integer array nums, return all the triplets [nums[i],
+// nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+// Notice that the solution set must not contain duplicate triplets.
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function (nums) {
+  let solution = [];
+  for (let a = 0; a < nums.length - 2; a++) {
+    for (let b = a + 1; b < nums.length - 1; b++) {
+      for (let c = b + 1; c < nums.length; c++) {
+        if (nums[a] + nums[b] + nums[c] == 0) {
+          let comparison = [nums[a], nums[b], nums[c]].sort((a, b) => a - b);
+          if (solution.some((arr) => arr.includes(...comparison)) == false) {
+            solution.push(comparison);
+          }
+        }
+      }
+    }
+  }
+  return solution;
+};
+
+// trying to make a faster  solution
+
+var threeSums = function (nums) {
+  nums.sort((a, b) => a - b);
+  // create array to store solutions
+  const solutions = [];
+  let target = 0;
+
+  for (let a = 0; a < nums.length - 2; a++) {
+    // nums[a] is starting from the beginning of the array and the array is sorted from least to greatest
+    // so if the leftmost number is positive then that mean that nums[b] and nums[c]
+    // will also be positive, since they are to the right of nums[a]. Therefore,
+    // the sum of these three numbers cannot equal 0, so we break out of the for loop.
+    if (nums[a] > 0) break;
+    // We do not want to perform operations on a number that we already saw.
+    if (a > 0 && nums[a] == nums[a - 1]) continue;
+
+    let b = a + 1;
+    let c = nums.length - 1;
+
+    while (b < c) {
+      let total = nums[a] + nums[b] + nums[c];
+      if (total == target) {
+        solutions.push([nums[a], nums[b], nums[c]]);
+        while (nums[b] == nums[b + 1]) b++;
+        while (nums[c] == nums[c - 1]) c--;
+        b++;
+        c--;
+      } else if (total < target) {
+        b++;
+      } else {
+        c--;
+      }
+    }
+  }
+
+  return solutions;
+};
+
+nums = [-1, 0, 1, 2, -1, -4];
+// Output: [[-1,-1,2],[-1,0,1]]
+console.log(threeSum(nums));
+nums = [-1, 0, 1];
+console.log(threeSum(nums));
+let array = [-1, 0, 1, 2, -1, -4];
+console.log(threeSum(array));
+nums = [0, 0, 0];
+console.log(threeSum(nums));
+nums = [3, 0, -2, -1, 1, 2];
+//[[-2,-1,3],[-2,0,2],[-1,0,1]]
+console.log(threeSum(nums));
+
+console.log(threeSums(nums));
+
+// You are given an integer array height of length n. There are n vertical lines
+// drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+// Find two lines that together with the x-axis form a container,
+// such that the container contains the most water.
+// Return the maximum amount of water a container can store.
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function (height) {
+  let highestArea = 0;
+  let a = 0;
+  let b = height.length - 1;
+  while (b > a) {
+    highestArea = Math.max((b - a) * Math.min(height[a], height[b]), highestArea);
+    if (height[a] >= height[b]) b--;
+    else if (height[b] >= height[a]) a++;
+  }
+  return highestArea;
+};
+// works but very slow
+
+let height = [1, 8, 6, 2, 5, 4, 8, 3, 7];
+console.log(maxArea(height));
+height = [1, 1];
+console.log(maxArea(height));
+height = [1, 2];
+console.log(maxArea(height));
+height = [1, 2, 4, 3];
+console.log(maxArea(height));
+height = [2, 3, 4, 5, 18, 17, 6];
+console.log(maxArea(height));
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+// var lengthOfLongestSubstring = function (s) {
+//   let charArray = [];
+//   let longest = 0;
+//   let i = 0;
+//   let j = 0;
+//   while (i < s.length) {
+//     if (!charArray.includes(s[i])) {
+//       charArray.push(s[i]);
+//       i++;
+//     } else {
+//       longest = Math.max(charArray.length, longest);
+//       j++;
+//       charArray = [s[j]];
+//       i = j + 1;
+//     }
+//   }
+//   longest = Math.max(charArray.length, longest);
+
+//   return longest;
+// };
+// trying to make the solution faster by removing the need for an array to check the character values
+var lengthOfLongestSubstring = function (s) {
+  let current = 0;
+  let longest = 0;
+  let i = 0;
+  let j = 0;
+  while (i < s.length) {
+    if (i == 0) {
+      current++;
+      i++;
+    } else if (s[i] != s[j] && s[i] != s[i - 1]) {
+      current++;
+      i++;
+    } else {
+      longest = Math.max(current, longest);
+      current = 1;
+      j++;
+      i = j + 1;
+    }
+  }
+  longest = Math.max(current, longest);
+
+  return longest;
+};
+
+s = "abcabcbb";
+console.log(lengthOfLongestSubstring(s));
+s = "bbbbb";
+console.log(lengthOfLongestSubstring(s));
+s = "pwwkew";
+console.log(lengthOfLongestSubstring(s));
+s = "pww kewkd dlejfg";
+console.log(lengthOfLongestSubstring(s));
+s = "dvdf"; // should be 3
+console.log(lengthOfLongestSubstring(s));
+s = "dvfdabc"; // should be
+console.log(lengthOfLongestSubstring(s));
+s = "pwwkew";
+console.log(lengthOfLongestSubstring(s));
+s = " ";
+console.log(lengthOfLongestSubstring(s));
