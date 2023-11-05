@@ -421,6 +421,7 @@ console.log(maxArea(height));
 //   return longest;
 // };
 // trying to make the solution faster by removing the need for an array to check the character values
+// not solved, yet
 var lengthOfLongestSubstring = function (s) {
   let current = 0;
   let longest = 0;
@@ -461,3 +462,152 @@ s = "pwwkew";
 console.log(lengthOfLongestSubstring(s));
 s = " ";
 console.log(lengthOfLongestSubstring(s));
+
+// Given two strings s and t of lengths m and n respectively, return the minimum window
+// substring
+// of s such that every character in t (including duplicates)
+// is included in the window. If there is no such substring, return the empty string "".
+// The testcases will be generated such that the answer is unique.
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {string}
+ */
+var minWindow = function (s, t) {
+  let letters = t.split("");
+  let lettersRemaining = t.split("");
+  let answer;
+  let j;
+  for (let i = 0; i < s.length; i++) {
+    if (letters.includes(s[i])) {
+      if (j == undefined) j = i;
+      if (lettersRemaining.includes(s[i])) {
+        lettersRemaining.splice(lettersRemaining.indexOf(s[i]), 1);
+        if (lettersRemaining.length == 0) {
+          lettersRemaining = letters;
+          let substring = s.slice(j, i + 1);
+          if (answer == undefined) answer = substring;
+          else answer = substring.length < answer.length ? substring : answer;
+          j = i;
+          i = i - 1;
+        }
+      } else {
+        if (s[j] == s[i]) j = i;
+      }
+    }
+  }
+
+  return answer;
+};
+
+s = "ADABECBAOBECODBANCABC";
+let t = "ABC";
+
+// Output: "BANC"
+console.log(minWindow(s, t));
+
+let word = "bob";
+console.log(word.slice(0, 3));
+
+s = "ADOBECODEBANC";
+t = "ABC";
+console.log(minWindow(s, t));
+
+var sortColors = function (nums) {
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > nums[i + 1]) {
+      let j = i;
+      while (nums[j] > nums[j + 1]) {
+        let temp = nums[j + 1];
+        nums[j + 1] = nums[j];
+        nums[j] = temp;
+        j++;
+      }
+    }
+  }
+
+  return nums;
+};
+
+nums = [2, 0, 2, 1, 1, 0];
+console.log(sortColors(nums));
+//Output: [0,0,1,1,2,2]
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function (s) {
+  let dict = { ")": "(", "]": "[", "}": "{" };
+  let stack = [];
+  for (let letter of s) {
+    if (["(", "[", "{"].includes(letter)) {
+      stack.push(letter);
+    } else if ([")", "]", "}"].includes(letter)) {
+      let popped = dict[letter];
+      if (popped != stack.pop()) return false;
+    }
+  }
+  if (stack.length != 0) return false;
+  return true;
+};
+
+s = "()([{])";
+console.log(isValid(s));
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMin = function (nums) {
+  if (nums.length == 1) {
+    return nums[0];
+  } else if (nums.length == 2) {
+    return nums[0] < nums[1] ? nums[0] : nums[1];
+  }
+  let middleIndex = Math.floor(nums.length / 2);
+  const middleNumber = nums[middleIndex];
+  let lastNumber = nums[nums.length - 1];
+  if (middleNumber > lastNumber) {
+    return findMin(nums.splice(middleIndex));
+  } else {
+    return findMin(nums.splice(0, middleIndex + 1));
+  }
+};
+
+nums = [3, 4, 5, 1, 2];
+console.log(findMin(nums));
+nums = [4, 5, 6, 7, 0, 1, 2];
+console.log(findMin(nums));
+nums = [11, 13, 15, 17];
+console.log(findMin(nums));
+
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number}
+ */
+var getWinner = function (arr, k) {
+  let winningCount = 0;
+  let currentNumber;
+  while (winningCount != k) {
+    if (arr[0] > arr[1]) {
+      currentNumber = arr[0];
+      let removed = arr.splice(1, 1);
+      arr.push(removed);
+      winningCount = currentNumber == arr[0] ? winningCount + 1 : 1;
+    } else {
+      currentNumber = arr[1];
+      let removed = arr.splice(0, 1);
+      arr.push(removed);
+      winningCount = currentNumber == arr[1] ? winningCount + 1 : 1;
+    }
+  }
+  return currentNumber;
+};
+
+arr = [2, 1, 3, 5, 4, 6, 7];
+let k = 2;
+// output - 5
+console.log(getWinner(arr, k));
