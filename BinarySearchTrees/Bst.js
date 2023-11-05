@@ -185,6 +185,11 @@ class Tree {
     const heightDiff = Math.abs(this.height(node.left) - this.height(node.right));
     return heightDiff <= 1 && this.isBalanced(node.left) && this.isBalanced(node.right);
   }
+
+  rebalance() {
+    this.array = this.inorder();
+    this.buildTree();
+  }
 }
 
 const tree = new Tree([1, 7, 4, 23, 8, 9]);
@@ -228,3 +233,6 @@ tree.insert(1000);
 tree.delete(2);
 tree.prettyPrint();
 console.log(tree.isBalanced());
+tree.rebalance();
+console.log(tree.isBalanced());
+tree.prettyPrint();

@@ -588,6 +588,7 @@ console.log(findMin(nums));
  * @param {number} k
  * @return {number}
  */
+// time limit exceeded
 var getWinner = function (arr, k) {
   let winningCount = 0;
   let currentNumber;
@@ -607,7 +608,86 @@ var getWinner = function (arr, k) {
   return currentNumber;
 };
 
+var getWinners = function (arr, k) {
+  let winningCount = 0;
+  let currentNumber;
+  while (winningCount != k) {
+    if (arr[0] > arr[1]) {
+      currentNumber = arr[0];
+      arr.push(arr.splice(1, 1)[0]);
+      winningCount = currentNumber == arr[0] ? winningCount + 1 : 1;
+    } else {
+      currentNumber = arr[1];
+      arr.push(arr.splice(0, 1)[0]);
+      winningCount = currentNumber == arr[1] ? winningCount + 1 : 1;
+    }
+  }
+  return currentNumber;
+};
+
 arr = [2, 1, 3, 5, 4, 6, 7];
 let k = 2;
 // output - 5
 console.log(getWinner(arr, k));
+arr = [3, 2, 1];
+k = 10;
+console.log(getWinner(arr, k));
+let number = arr.splice(0, 1);
+console.log(number);
+
+function ListNode(val, next) {
+  this.val = val === undefined ? 0 : val;
+  this.next = next === undefined ? null : next;
+}
+
+var mergeTwoLists = function (list1, list2) {
+  if (list1 == null && list2 == null) return list1;
+  let head;
+  while (list1 != null || list2 != null) {
+    while (list1.val <= list2.val || list2 == null) {
+      if (head == undefined) head = list1;
+      else head.next = list1;
+      list1 = list1.next;
+    }
+    while (list2.val <= list1.val || list1 == null) {
+      if (head == undefined) head = list2;
+      else head.next = list2;
+      list2 = list2.next;
+    }
+  }
+  return head;
+};
+
+// You are given the head of a singly linked-list. The list can be represented as:
+// L0 → L1 → … → Ln - 1 → Ln
+// Reorder the list to be on the following form:
+// L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+
+var reorderList = function (head) {
+  let stack = [];
+  let nodeIterator = head.next;
+  while (nodeIterator != null) {
+    stack.push(nodeIterator);
+    nodeIterator = nodeIterator.next;
+  }
+  nodeIterator = head;
+  while (stack.length != 0) {
+    nodeIterator.next = stack.pop();
+    nodeIterator = nodeIterator.next;
+    let next = stack.shift();
+    nodeIterator.next = next != undefined ? next : null;
+    if (nodeIterator.next == null || stack.length != 0) {
+      nodeIterator.next.next = null;
+      break;
+    }
+    nodeIterator = nodeIterator.next;
+  }
+  return head;
+};
+// stack = [2,3,4,5]
+// Input: head = [1,2,3,4,5]
+// Output: [1,5,2,4,3]
+
+// stack = [,3]
+// Input: head = [1,2,3,4]
+// Output: [1,4,2,3]

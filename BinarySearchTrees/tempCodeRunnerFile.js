@@ -1,1 +1,1 @@
-console.log(sortByBits(arr));
+tree.insert(1000);
