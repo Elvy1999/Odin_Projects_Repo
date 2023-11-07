@@ -314,3 +314,13 @@ while (iterator) {
   console.log(iterator);
   iterator = iterator.next;
 }
+
+var hasCycle = function (head) {
+  let iterator = head;
+  let nodeAry = [];
+  while (iterator != null && !nodeAry.includes(iterator.next)) {
+    nodeAry.push(iterator);
+    iterator = iterator.next;
+  }
+  return iterator == null ? false : true;
+};
