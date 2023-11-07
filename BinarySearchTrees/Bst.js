@@ -236,3 +236,81 @@ console.log(tree.isBalanced());
 tree.rebalance();
 console.log(tree.isBalanced());
 tree.prettyPrint();
+
+// Project: Knights Travails
+
+function knightMoves(starting, target) {
+  const board = [];
+
+  for (let i = 0; i <= 7; i++) {
+    for (let j = 0; j <= 7; j++) {
+      board.push([i, j]);
+    }
+  }
+
+  return board.indexOf(starting);
+}
+
+console.log(knightMoves([0, 0], [1, 2]));
+
+function ListNode(val, next) {
+  this.val = val === undefined ? 0 : val;
+  this.next = next === undefined ? null : next;
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+
+var removeNthFromEnd = function (head, n) {
+  let iterator = head;
+  let hashmap = {};
+  let index = 1;
+  while (iterator) {
+    hashmap[index] = iterator;
+    iterator = iterator.next;
+    index++;
+  }
+  if (index == 3 && n == 2) {
+    return hashmap[2];
+  } else if (index == 3) {
+    head.next = null;
+    return head;
+  } else if (index == 2) {
+    return null;
+  }
+  let removeIndex = index - n;
+  if (hashmap[removeIndex].next == null) {
+    hashmap[removeIndex - 1].next = null;
+  } else if (removeIndex == 1) {
+    head = hashmap[2];
+  } else {
+    hashmap[removeIndex - 1].next = hashmap[removeIndex + 1];
+  }
+  return head;
+};
+
+function ListNode(val, next) {
+  this.val = val === undefined ? 0 : val;
+  this.next = next === undefined ? null : next;
+}
+numbers = [1, 2, 3];
+let head = new ListNode(numbers[0]);
+let iterator = head;
+let remainingNumbers = numbers.slice(1);
+
+for (let number of remainingNumbers) {
+  let node = new ListNode(number);
+  iterator.next = node;
+  iterator = node;
+}
+
+let n = 1;
+head = removeNthFromEnd(head, n);
+iterator = head;
+while (iterator) {
+  console.log(iterator);
+  iterator = iterator.next;
+}
